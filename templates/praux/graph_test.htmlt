@@ -1,0 +1,98 @@
+<% graphing = 1 %>
+<% title = "Graph Tester" %>
+<% no_menu = 1 %>
+<% sub_title = "Get your graph on!" %>
+<% INCLUDE praux/header.htmlt %>
+<% PROCESS praux/graphs.htmlt %>
+
+<div style="padding: 5px">
+<!-- configure the graph -->
+<% 
+    flot_canvas_height = "250px"
+    flot_legend_height = "250px"
+    flot_canvas_width = "600px"
+    flot_legend_width = "250px"
+%>
+<!-- top resumes -->
+<% flot_series = self.report.plot_top_resumes %>
+<% flot_chart_title = "Top Resumes - Views Per Day" %>
+<% INCLUDE front_page_graph %>
+
+<!-- site-wide hits -->
+<% flot_series = self.report.plot_hits %>
+<% flot_chart_title = "Site Wide - Views Per Day" %>
+<% INCLUDE front_page_graph %>
+
+<!-- site-wide hits multi-month -->
+<% flot_series = self.report.plot_hits(self.time - (3600 * 24) * 90, self.time, (3600 * 24) * 5) %>
+<% flot_chart_title = "Site Wide - Views Per Day (Longer Term)" %>
+<% INCLUDE front_page_graph %>
+
+<!-- site-wide hits multi-month -->
+<% flot_series = self.report.plot_hits(self.time - (3600 * 24) * 180, self.time, (3600 * 24) * 10) %>
+<% flot_chart_title = "Site Wide - Views Per Day (Even Longer Term)" %>
+<% INCLUDE front_page_graph %>
+
+<!-- year-long hits -->
+<% flot_series = self.report.plot_hits(self.time - (3600 * 24) * 465, self.time, (3600 * 24) * 31) %>
+<% flot_chart_title = "Site Wide - Views Per Day (1 year)" %>
+<% INCLUDE front_page_graph %>
+
+<!-- resume activity -->
+<% flot_series = self.report.plot_activity %>
+<% flot_chart_title = "Site Wide - Resume Edit Activity" %>
+<% INCLUDE front_page_graph %>
+
+<!-- resume activity multi-month -->
+<% flot_series = self.report.plot_activity(self.time - (3600 * 24) * 90, self.time, (3600 * 24) * 5) %>
+<% flot_chart_title = "Site Wide - Resume Edit Activity (Longer Term)" %>
+<% INCLUDE front_page_graph %>
+
+<!-- resume activity multi-month -->
+<% flot_series = self.report.plot_activity(self.time - (3600 * 24) * 180, self.time, (3600 * 24) * 10) %>
+<% flot_chart_title = "Site Wide - Resume Edit Activity (Even Longer Term)" %>
+<% INCLUDE front_page_graph %>
+
+<!-- top languages hits -->
+<% flot_series = self.report.plot_top_languages %>
+<% flot_chart_title = "Site Wide - Views In Top Languages" %>
+<% INCLUDE front_page_graph %>
+
+<!-- ninja please -->
+<% flot_series = self.report.plot_resume_hits %>
+<% flot_chart_title = "Resume Specific - Views Per Day" %>
+<% INCLUDE front_page_graph %>
+
+<!-- ninja please -->
+<% flot_series = self.report.plot_resume_hits_humans_only %>
+<% flot_chart_title = "Resume Specific - Views Per Day (Humans Only)" %>
+<% INCLUDE front_page_graph %>
+
+<!-- ninja please -->
+<% flot_series = self.report.plot_resume_hits_cached_vs_not %>
+<% flot_chart_title = "Resume Specific - Views Per Day - Cached Vs. Not" %>
+<% INCLUDE front_page_graph %>
+
+<!-- ninja please -->
+<% flot_series = self.report.plot_resume_hits_robots_vs_not %>
+<% flot_chart_title = "Resume Specific - Views Per Day - Robots Vs. Not" %>
+<% INCLUDE front_page_graph %>
+
+<!-- ninja please -->
+<% flot_series = self.report.plot_resume_hits_content_type %>
+<% flot_chart_title = "Resume Specific - Views Per Day - By Content Type" %>
+<% INCLUDE front_page_graph %>
+
+<!-- ninja please -->
+<% flot_series = self.report.plot_resume_hits_views %>
+<% flot_chart_title = "Resume Specific - Views Per Day - By View" %>
+<% INCLUDE front_page_graph %>
+
+<!-- ninja please -->
+<% flot_series = self.report.plot_resume_hits_lang %>
+<% flot_chart_title = "Resume Specific - Views Per Day - By Language" %>
+<% INCLUDE front_page_graph %>
+
+</div>
+
+<% INCLUDE praux/footer.htmlt %>

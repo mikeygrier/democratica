@@ -1,0 +1,105 @@
+<% IF ri.owner.preference('com.praux.anonymize_resume') %>
+    <% title = "(P.c) An Excellent Candidate's Resume" %> 
+<% ELSE %>
+    <% title = "(P.c) " _ resume.name _ "'s Resume" %>
+<% END %>
+
+<% IF self.resume_words %> 
+    <% title = title _ " - " _ self.resume_words %>
+<% END %>
+
+<% PROCESS praux/prauxtron/prauxtron_blocks.htmlt %>
+<% INCLUDE praux/prauxtron/prauxtron_header.htmlt %>
+<script>
+	// language definitions
+	var lang = "<% self.lang %>";
+	var default_language = <% IF self.resume.default_language %>"<% self.resume.default_language %>"<% ELSE %>"en"<% END %>;
+	var lang_long = "<% self.lang_short_to_long(self.lang) %>";
+	var default_lang_long = "<% self.lang_short_to_long(self.resume.default_language) OR "English" %>";
+
+	var view = "<% self.view %>";
+	var app_base = "<% self.romeo.app_base %>";
+	var active_user = <% IF self.active_user %>true<% ELSE %>false<% END %>;
+	var is_mine = <% IF self.active_user.id == self.resume.praux_user.id %>true<% ELSE %>false<% END %>;
+	<% IF self.romeo.session.tried %>
+		var login_tried = "<% self.romeo.session.tried %>";
+		<% CALL self.romeo.session.tried('__clear__'); %>
+	<% ELSE %>
+		var login_tried = false;
+	<% END %>
+</script>
+
+<!-- the prauxtron resume editor 2 turbo championship edition -->
+<div class="ui-widget" id="error_container" style="width:700px;display:none;top:80px;position:fixed">
+    <div class="ui-state-error ui-corner-all" style="padding: 7px 0 0 4px;"> 
+        <p><span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span> 
+        <strong><span id="error_word"></span></strong>
+        <span id="error_body"></span>
+    </div>
+</div>
+<div class="ui-widget" id="notice_container" style="width:700px;display:none;top:40px;position:fixed">
+    <div class="ui-state-highlight ui-corner-all" style="padding: 7px 0 0 4px;"> 
+        <p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span> 
+        <strong><span id="notice_word"></span></strong>
+        <span id="notice_body"></span>
+    </div>
+</div>
+
+<% IF self.view == "edit" %>
+	<% INCLUDE praux/prauxtron/prauxtron_helper.htmlt %>
+	<% UNLESS resume.praux_user.preference('com.praux.noemblem') == 1 %>
+	    <div id="emblem" style="position:fixed;right:5px;top:7px;display:none;"><img src="/emblem/pv_emblem.png" height="48" width="48"/></div>
+    <% END %>
+<% ELSIF self.active_user %>
+	<% INCLUDE praux/prauxtron/prauxtron_helper.htmlt %>
+	<% UNLESS resume.praux_user.preference('com.praux.noemblem') == 1 %>
+	    <div id="emblem" style="position:fixed;right:5px;top:7px;display:none;"><img src="/emblem/pv_emblem.png" height="48" width="48"/></div>
+    <% END %>
+<% ELSE %>
+    <% UNLESS resume.praux_user.preference('com.praux.hidesimilar') == 1 %>
+        <%# INCLUDE praux/prauxtron/prauxtron_similar_resumes.htmlt %>
+    <% END %>
+    <% UNLESS resume.praux_user.preference('com.praux.noemblem') == 1 %>
+        <div id="emblem" style="position:fixed;right:5px;top:7px;<% IF self.romeo.param('no_emblem') %>display:none;<% END %>"><img src="/emblem/pv_emblem.png" height="48" width="48"/></div> 
+	<% END %>
+<% END %>
+
+<% IF self.active_user %>
+    <% INCLUDE dialog_boxes %>
+    <% INCLUDE context_menu %>
+<% END %>
+
+<!-- resume goodies start -->
+
+<div class="colorstrip">
+<div class="headwrap">
+<% IF ri.owner.preference('com.praux.anonymize_resume') %>
+    <h1>An Excellent Candidate<% IF self.resume_words %> - <% self.resume_words %><% END %></h1>
+<% ELSE %>
+    <h1><% resume.name %><% IF self.resume_words%> - <% self.resume_words %><% END %></h1>
+<% END %>
+
+<% IF resume.praux_user.preference('com.praux.showmailmask') == 1 %>
+    <% print_email = resume.instance _ '@praux.com' %>
+<% ELSE %>
+    <% print_email = resume.email %>
+<% END %>
+<p class="email"><a href="mailto:<% print_email %>"><% print_email %></a><br/>
+<% UNLESS ri.owner.preference('com.praux.anonymize_resume') %>
+    <% IF resume.phone %><% resume.phone %><% END %></p>
+    <p class="address">
+      <% IF resume.address %><% resume.address %><% END %>
+    </p>
+<% END %>
+</div>
+</div>
+
+<div class="wrapper">
+<div id="sections">
+<% FOREACH section = resume.sorted_sections %>
+	<% INCLUDE section %>
+<% END %>
+</div>
+
+<% INCLUDE praux/prauxtron/prauxtron_footer.htmlt %>
+</div>

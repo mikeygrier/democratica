@@ -1,0 +1,88 @@
+<% graphing = 1 %>
+<% is_front = 1 %>
+<% external_auth = 0 %>
+<% fb = 0 %>
+<% title = "Your Best Resume Realized!" %>
+<% sub_title = "<span style='font-size: 16px;'>The Premiere Resume Editor &amp; Host - Prauxnounced 'Pro Dot Com'</span>" %>
+<% INCLUDE praux/header.htmlt %>
+<% PROCESS praux/graphs.htmlt %>
+<% PROCESS praux/mini_profile.htmlt %>
+<!-- test -->
+	<script language="javascript" type="text/javascript" src="<% romeo.romeo_location %>/js/swfobject.js"></script>
+    <div id="site-content">
+        <div id="content-top" class="content">
+            <% IF self.active_user AND self.active_user.resume %>
+                <h3>Resume Activity Dashboard</h3>
+            <% END %>
+            <% IF self.active_user AND self.active_user.resume %>
+                <div id="promo-content">
+                    <% INCLUDE praux/dashboard.htmlt %>
+                </div>
+            <% ELSE %>
+                <div id="promo-content">                
+                </div>
+                <script type="text/javascript" language="javascript"> 
+                    var flashvars = {};
+                    <% IF self.active_user %>
+                        flashvars.isreg = "true";
+                    <% ELSE %>
+                        flashvars.isreg = "false";
+                    <% END %>
+                                flashvars.slideSpeed = "450"; // Can't be faster than 320. 320 = orig, 600 = half speed//
+                                var params = {};
+                                params.menu = "false";
+                                var attributes = {};            
+                        swfobject.embedSWF("/swf/slides_final.swf", "promo-content", "780", "400", "9.0.0", "/swf/expressInstall.swf", flashvars, params, attributes);
+                 </script>
+            <% END %>
+            <div id="recent-additions">
+                <h3>Featured Resumes</h3>
+                <table style="padding: 0px; border-spacing: 0px; border: none">
+                <% i = 0
+                   printed = 0
+                %>
+                <% FOREACH resume = self.recently_updated_resumes_with_gravatars(1, 15) %>
+                    <% user = resume.praux_user %>
+                    <% NEXT IF resume.recent_title == "Editor In Chief" %>
+                    <% NEXT IF user.preference('com.praux.publish_resume') == 0 %>
+                    <% IF i == 0 %><tr><% END %>
+                    <% i = i + 1 %>
+                    <td>
+                        <% PROCESS mini_profile %>
+                        <% printed = printed + 1 %>
+                    </td>
+                    <% IF i == 3 %>
+                        <% i = 0 %>
+                        </tr>
+                    <% END %>
+                    <% LAST IF printed == 9 %>
+                <% END %>
+                </table>
+            </div>
+        </div> <!-- /content-top -->
+        <div class="clear-both"></div>
+        <div id="content-bottom">
+        	
+            <div id="belt-logo">
+            	<img src="/img/belt-logo.png" alt="Praux.com" />
+            </div> <!-- /belt-logo -->
+            
+            <div id="stats-charts" class="content">
+                    <% 
+                        flot_canvas_height = "250px"
+                        flot_legend_height = "250px"
+                        flot_canvas_width = "600px"
+                        flot_legend_width = "250px"
+                    %>
+                    
+                    <!-- site-wide hits -->
+                    <%# flot_series = self.report.plot_hits %>
+                    <%# flot_chart_title = "Site Wide - Views Per Day" %>
+                    <%# INCLUDE front_page_graph %>
+                    
+                    <div class="clearboth"></div>
+            </div> <!-- /stats-charts -->
+            
+        </div> <!-- /content-bottom -->
+    
+<% INCLUDE praux/footer.htmlt %>

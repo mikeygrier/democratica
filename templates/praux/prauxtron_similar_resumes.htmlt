@@ -1,0 +1,42 @@
+<% IF !self.is_myself %>
+<div id="similar-resumes">
+    Key Words<br/>
+    <div style="text-align: justify; border-top: 1px #666 solid; font-size: 10px; padding: 2px;">
+    <% FOREACH word = self.sts(self.resume).0 %>
+        <a style="color: #fff" href="http://<% IF self.is_dev %>prauxdev.com<% ELSE %>praux.com<% END %>/page/content_search/?q=<% word %>"><% word %></a>
+    <% END %>
+    </div>
+    
+    <% rlangs = self.resume.languages %>
+    <% IF rlangs.size > 1 %>    
+        <div style="border-top: 1px #666 solid; height: 2px;">&nbsp;</div>
+        Alternate Languages
+        <div style="border-top: 1px #666 solid; text-align: justify; font-size: 10px; padding: 2px;">
+            <% FOREACH lang = rlangs %>
+                <% NEXT IF lang == self.lang %>
+                <a style="color: #fff" href="/<% self.view %>/<% lang %>/" title="View this resume in <% self.lang_short_to_long_en(lang) %>"><% self.lang_short_to_long(lang) %></a> 
+            <% END %>
+        </div>
+    <% END %>
+    
+    <div style="border-top: 1px #666 solid; height: 2px;">&nbsp;</div>
+    Similar Resumes
+    <% FOREACH similar_resume = self.similar_resumes(self.resume, 4) %>
+        <div style="text-align: left; border-top: 1px #666 solid; font-size: 10px; padding:5px;">
+        <% IF self.lang == similar_resume.default_language %>
+            <% resume_url_lang = "http://" _ similar_resume.instance _ self.c.COOKIE_DOMAIN _ "/resume/" %>
+        <% ELSE %>
+            <% resume_url_lang = "http://" _ similar_resume.instance _ self.c.COOKIE_DOMAIN _ "/default/" _ self.lang _ "/" %>
+        <% END %>
+        <% resume_url = "http://" _ similar_resume.instance _ self.c.COOKIE_DOMAIN _ "/resume/" %>
+        <a style="color:#fff; font-size:12px" href="<% IF similar_resume.is_in_language(self.lang) %><% resume_url_lang %><% ELSE %><% resume_url %><% END %>"><% similar_resume.name %></a><br/>
+        Views: <% similar_resume.hit_count %> - 
+        <% IF similar_resume.is_in_language(self.lang) %>
+            <% self.truncate(similar_resume.random_excerpts(self.lang), 120, 1) %>
+        <% ELSE %>
+            <% self.truncate(similar_resume.random_excerpts(similar_resume.default_language), 120, 1) %>
+        <% END %>
+        </div>
+    <% END %>
+</div>
+<% END %>

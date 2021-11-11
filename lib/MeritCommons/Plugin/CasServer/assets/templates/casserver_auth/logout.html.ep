@@ -1,0 +1,18 @@
+% layout 'idp';
+% title 'Login • MeritCommons Identity Provider';
+
+<div id="content-wrapper" class="container">
+  <div class="form-signin">
+    <h1 class="page-header form-signin-heading">Logged out</h1>
+    <div class="form-signin-message lead muted">
+	    You have been logged out. 
+	    <% if ($self->stash('url')) { %> 
+	    <div style="margin-top: 20px">
+	    The application you logged out of has requested that you visit the following URL:<br />
+	    <a href="<%= $self->stash('url') %>"><%= $self->stash('url') %></a>
+	    </div>
+    </div>
+    <% } %>
+  </div>
+
+</div> <!-- /container -->

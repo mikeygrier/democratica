@@ -1,0 +1,9 @@
+<% title = "Resume Directory" %>
+<% no_login_box = 1 %>
+<% meta_description = "The Resume Site Directory" %>
+<% meta_title = "Praux.com - Your Best Resume Realized!" %>
+<% INCLUDE praux/header.htmlt %>
+    <div style="padding: 5px">
+        
+    </div>
+<% INCLUDE praux/footer.htmlt %>

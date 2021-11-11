@@ -1,0 +1,57 @@
+<% graphing = 1 %>
+<% title = "Resume Metrics" %>
+<% no_menu = 1 %>
+<% INCLUDE praux/header.htmlt %>
+<% PROCESS praux/graphs.htmlt %>
+
+<div style="padding: 5px; background-color: #EDF2F9;">
+<!-- configure the graph -->
+<% 
+    flot_canvas_height = "250px"
+    flot_legend_height = "250px"
+    flot_canvas_width = "600px"
+    flot_legend_width = "250px"
+%>
+
+<% IF self.resume %>
+    <!-- ninja please -->
+    <% flot_series = self.report.plot_resume_hits %>
+    <% flot_chart_title = "Resume Specific - Views Per Day" %>
+    <% INCLUDE front_page_graph %>
+
+    <!-- ninja please -->
+    <% flot_series = self.report.plot_resume_hits_humans_only %>
+    <% flot_chart_title = "Resume Specific - Views Per Day (Humans Only)" %>
+    <% INCLUDE front_page_graph %>
+
+    <!-- ninja please -->
+    <% flot_series = self.report.plot_resume_hits_cached_vs_not %>
+    <% flot_chart_title = "Resume Specific - Views Per Day - Cached Vs. Not" %>
+    <% INCLUDE front_page_graph %>
+
+    <!-- ninja please -->
+    <% flot_series = self.report.plot_resume_hits_robots_vs_not %>
+    <% flot_chart_title = "Resume Specific - Views Per Day - Robots Vs. Not" %>
+    <% INCLUDE front_page_graph %>
+
+    <!-- ninja please -->
+    <% flot_series = self.report.plot_resume_hits_content_type %>
+    <% flot_chart_title = "Resume Specific - Views Per Day - By Content Type" %>
+    <% INCLUDE front_page_graph %>
+
+    <!-- ninja please -->
+    <% flot_series = self.report.plot_resume_hits_views %>
+    <% flot_chart_title = "Resume Specific - Views Per Day - By View" %>
+    <% INCLUDE front_page_graph %>
+
+    <!-- ninja please -->
+    <% flot_series = self.report.plot_resume_hits_lang %>
+    <% flot_chart_title = "Resume Specific - Views Per Day - By Language" %>
+    <% INCLUDE front_page_graph %>
+<% ELSE %>
+    Error: You must view this page from the context of a <% self.romeo.c.COOKIE_DOMAIN %> resume!
+<% END %>
+
+</div>
+
+<% INCLUDE praux/footer.htmlt %>

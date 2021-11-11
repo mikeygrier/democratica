@@ -1,0 +1,203 @@
+<% title = "Praux.com Resume List" %>
+<% sub_title = "<span style='font-size: 16px;'>Praux.com Master List</span>" %>
+<% order_by = self.romeo.param('order_by') %>
+<% sort_order = self.romeo.param('sort_order') %>
+
+<% IF order_by != 'instance' && order_by != 'name' && order_by != 'hit_count' && order_by != 'modify_time' && order_by != 'default_language' && order_by != 'completeness' %>
+    <% order_by = '' %>
+<% END %>
+
+<% IF sort_order != 'asc' && sort_order != 'desc' %>
+    <% sort_order = '' %>
+<% END %>
+
+<% page = self.romeo.param('page') %>
+
+<% resumes = self.all_resumes_paged(page, order_by, sort_order) %>
+<% pager = resumes.pager %>
+
+<% IF order_by == "instance" %>
+    <% IF sort_order == "desc" %>
+        <% instance_sort_toggle = "/page/master_list/?order_by=instance&sort_order=asc" _ "&page=" _ page %>
+    <% ELSE %>
+        <% instance_sort_toggle = "/page/master_list/?order_by=instance&sort_order=desc" _ "&page=" _ page %>
+    <% END %>
+<% ELSE %>
+    <% instance_sort_toggle = "/page/master_list/?order_by=instance&sort_order=desc" _ "&page=" _ page %>
+<% END %>
+
+<% IF order_by == "name" %>
+    <% IF sort_order == "desc" %>
+        <% name_sort_toggle = "/page/master_list/?order_by=name&sort_order=asc" _ "&page=" _ page %>
+    <% ELSE %>
+        <% name_sort_toggle = "/page/master_list/?order_by=name&sort_order=desc" _ "&page=" _ page %>
+    <% END %>
+<% ELSE %>
+    <% name_sort_toggle = "/page/master_list/?order_by=name&sort_order=desc" _ "&page=" _ page %>
+<% END %>
+
+<% IF order_by == "hit_count" %>
+    <% IF sort_order == "desc" %>
+        <% hits_sort_toggle = "/page/master_list/?order_by=hit_count&sort_order=asc" _ "&page=" _ page %>
+    <% ELSE %>
+        <% hits_sort_toggle = "/page/master_list/?order_by=hit_count&sort_order=desc" _ "&page=" _ page %>
+    <% END %>
+<% ELSE %>
+    <% hits_sort_toggle = "/page/master_list/?order_by=hit_count&sort_order=desc" _ "&page=" _ page %>
+<% END %>
+
+<% IF order_by == "modify_time" %>
+    <% IF sort_order == "desc" %>
+        <% last_change_sort_toggle = "/page/master_list/?order_by=modify_time&sort_order=asc" _ "&page=" _ page %>
+    <% ELSE %>
+        <% last_change_sort_toggle = "/page/master_list/?order_by=modify_time&sort_order=desc" _ "&page=" _ page %>
+    <% END %>
+<% ELSE %>
+    <% last_change_sort_toggle = "/page/master_list/?order_by=modify_time&sort_order=desc" _ "&page=" _ page %>
+<% END %>
+
+<% IF order_by == "default_language" %>
+    <% IF sort_order == "desc" %>
+        <% language_sort_toggle = "/page/master_list/?order_by=default_language&sort_order=asc" _ "&page=" _ page %>
+    <% ELSE %>
+        <% language_sort_toggle = "/page/master_list/?order_by=default_language&sort_order=desc" _ "&page=" _ page %>
+    <% END %>
+<% ELSE %>
+    <% language_sort_toggle = "/page/master_list/?order_by=default_language&sort_order=desc" _ "&page=" _ page %>
+<% END %>
+
+<% IF order_by == "completeness" %>
+    <% IF sort_order == "desc" %>
+        <% completeness_sort_toggle = "/page/master_list/?order_by=completeness&sort_order=asc" _ "&page=" _ page %>
+    <% ELSE %>
+        <% completeness_sort_toggle = "/page/master_list/?order_by=completeness&sort_order=desc" _ "&page=" _ page %>
+    <% END %>
+<% ELSE %>
+    <% completeness_sort_toggle = "/page/master_list/?order_by=completeness&sort_order=desc" _ "&page=" _ page %>
+<% END %>
+
+<% INCLUDE praux/header.htmlt %>    
+    <style>
+    .table_container {
+        padding: 5px;
+        border: none;
+        background-color: #FFF;
+    }
+    table.resume_list {
+        border: none;
+        background-color: #fff;
+    }
+    tr.header_row {
+        font-weight: bold;
+    }
+    td {
+        /*border: 1px black solid;*/
+        padding: 5px;
+        background-color: #FFF;
+    }
+	tr.header_row th {
+		border-bottom:1px solid #FFFFFF;
+		border-top:4px solid #D7DDE4;
+		background-color: #EDF2F9;
+		padding: 5px;
+	}
+    tr.spacer {
+        border: none;
+        background-color: #fff;
+    }
+    td.spacer {
+        border: none;
+        background-color: #fff;
+    }
+
+    tr.resume {
+        background-color: #fff;
+    }
+    tr.summary {
+        background-color: #fff;
+    }
+    tr.even td {
+        background-color: #EDF2F9;
+    }
+    tr.summary td {
+    	border-top: 2px dotted #CCC;
+    }
+    tr.resume.odd td {
+    	border-top:4px solid #D7DDE4;
+    }
+    tr.summary.odd td {
+    	border-bottom:4px solid #D7DDE4;
+    }
+    div.search_container {
+        padding: 4px;
+    }
+    
+    </style>
+    <div class="table_container">    	
+        <table cellspacing="0" cellpadding="0" id="resume_list" class="resume_list">
+        
+        <colgroup>
+			<col id="resume-col" class="even-col">
+			<col id="owner-col" class="odd-col">
+			<col id="hits-col" class="even-col">
+			<col id="last-chage-col" class="odd-col">
+			<col id="default-lang-col" class="even-col">
+		</colgroup>
+        
+        <thead>
+            <tr class="header_row">
+                <th><a href="<% instance_sort_toggle %>">Resume</a></th>
+                <th><a href="<% name_sort_toggle %>">Owner</a></th>
+                <th><a href="<% hits_sort_toggle %>">Views</a></th>
+                <th><a href="<% completeness_sort_toggle %>">Completeness</a></th>
+                <th><a href="<% last_change_sort_toggle %>">Last Change</a></th>
+                <th><a href="<% language_sort_toggle %>">Default Language</a></th>
+            </tr>
+        </thead>
+        
+        <tbody>
+            <% i = 0 %>
+            <% FOREACH res = resumes.all %>
+                <% i = i + 1 %>
+                <% resume_name = res.instance _ self.c.COOKIE_DOMAIN %>
+                <tr class="resume <% i % 2 ? 'odd' : 'even' %>">
+                    <td class="<% i % 2 ? 'odd' : 'even' %>"><a href="http://<% resume_name %>/resume.html"><% resume_name %></a></td>
+                    <td class="<% i % 2 ? 'odd' : 'even' %>"><% res.name %></td>
+                    <td class="<% i % 2 ? 'odd' : 'even' %>"><% res.hit_count %></td>
+                    <td class="<% i % 2 ? 'odd' : 'even' %>"><% res.completeness %>% Complete</td>
+                    <td class="<% i % 2 ? 'odd' : 'even' %>"><% self.pretty_date(res.modify_time) %></td>
+                    <td class="<% i % 2 ? 'odd' : 'even' %>"><% self.lang_short_to_long(res.default_language) %></td>
+                </tr>
+                <tr class="summary <% i % 2 ? 'odd' : 'even' %>">
+                    <td colspan="6" class="<% i % 2 ? 'odd' : 'even' %>">
+                        <% res.summary %>
+                    </td>
+                </tr>
+                
+            <% END %>
+        </tbody>
+        </table>
+        
+        <% IF pager.last_page == 1 %>
+            &lt;&lt;&nbsp;&lt;&nbsp;&gt;&nbsp;&gt;&gt;&nbsp;
+        <% ELSE %>
+            <% IF pager.last_page == pager.current_page %>
+                <a href="/page/master_list/?order_by=<% order_by %>&sort_order=<% sort_order %>&page=1">&lt;&lt;</a>
+                &nbsp;<a href="/page/master_list/?order_by=<% order_by %>&sort_order=<% sort_order %>&page=<% pager.previous_page %>">&lt;</a>
+                &gt; &gt;&gt;&nbsp;
+            <% ELSIF pager.current_page == 1 %>
+                &lt;&lt;&nbsp;&lt;&nbsp;
+                <a href="/page/master_list/?order_by=<% order_by %>&sort_order=<% sort_order %>&page=<% pager.next_page %>">&gt;</a>
+                &nbsp;<a href="/page/master_list/?order_by=<% order_by %>&sort_order=<% sort_order %>&page=<% pager.last_page %>">&gt;&gt;</a>    
+                &nbsp;
+            <% ELSE %>
+                <a href="/page/master_list/?order_by=<% order_by %>&sort_order=<% sort_order %>&page=1">&lt;&lt;</a>
+                &nbsp;<a href="/page/master_list/?order_by=<% order_by %>&sort_order=<% sort_order %>&page=<% pager.previous_page %>">&lt;</a>
+                &nbsp;<a href="/page/master_list/?order_by=<% order_by %>&sort_order=<% sort_order %>&page=<% pager.next_page %>">&gt;</a>
+                &nbsp;<a href="/page/master_list/?order_by=<% order_by %>&sort_order=<% sort_order %>&page=<% pager.last_page %>">&gt;&gt;</a>
+                &nbsp;
+            <% END %>
+        <% END %>
+        Found Resumes <% pager.entries_per_page * (pager.current_page - 1) + 1 %> - <% pager.entries_per_page * (pager.current_page - 1) + pager.entries_on_this_page %> of <% pager.total_entries %>.
+    </div>
+<% INCLUDE praux/footer.htmlt %>

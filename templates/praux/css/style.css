@@ -1,0 +1,726 @@
+/* Whitespace reset Back */
+
+* {
+    padding:0;
+    margin:0;
+}
+
+h1, h2, h3, h4, h5, h6, p, pre, blockquote, label, ul, ol, dl, fieldset, address {
+    margin: 8px 0;
+}
+
+h1,h2,h3,h4,h5,h6 {
+	font-family: Georgia, "Times New Roman", Times, serif;
+}
+
+
+
+li, dd, blockquote {
+    margin-left: 40px;
+}
+fieldset {
+    padding:10px;
+}
+
+* html #container
+{
+    height: 100%;
+}
+
+html {
+    height: 100%;
+}
+
+a {
+    color:#000;
+    font-weight:bold;
+}
+
+.dropspace {
+    height: 100px;
+    background-color: #ddd;
+}
+
+.imgsec {
+    padding-left:18px;
+    vertical-align: bottom;
+    float:left;
+}
+
+.hello {
+	font-size: 250px;
+	position:  absolute;
+	font-family: Andale Mono, courier new new, monospace, courier new, monaco, helvetica, georgia;
+	top: 128px;
+	right: 80px;
+	letter-spacing: -25px;
+}
+
+body {
+    background: #fff;
+    margin:     0;
+    padding:    2px;
+    /*font-family: Georgia, "Times New Roman", Times, serif;*/
+	font-family: Verdana, Geneva, sans-serif;
+    font-size: 14px;
+}   
+
+div.box {
+    border: 2px black solid;
+}
+
+div.white-box {
+    background: #fff;
+    border: 2px black solid;
+}
+
+table {
+    background: #eee;
+}
+
+.big-label {
+    /*font-family: Georgia, "Times New Roman", Times, serif;*/
+    font-size: 34px;
+    font-weight: bold;
+}
+
+.label {
+    /*font-family: Georgia, "Times New Roman", Times, serif;*/
+    font-size: 16px;
+}
+
+input.small {
+    background: #fff;
+    /*font-family: Georgia, "Times New Roman", Times, serif;*/
+    padding: 1px;
+    font-size: 1em;
+    border: #333 1px solid;
+}
+
+input.medium {
+    background: #fff;
+    /*font-family: Georgia, "Times New Roman", Times, serif;*/
+    padding: 1px;
+    font-size: 16px;
+    border: #333 1px solid;
+}
+
+input.big {
+    /*font-family: Georgia, "Times New Roman", Times, serif;*/
+    font-size: 26px;
+}
+
+.praux-big {
+    font-family: Georgia, "Times New Roman", Times, serif;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.praux-title {
+    font-family: Georgia, "Times New Roman", Times, serif;
+    text-align: center;
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.site-header {
+    border-bottom: black 2px solid;
+    padding: 2px;
+}
+
+.site-footer {
+    border-top: black 1px solid;
+    font-size: 10px;
+}
+
+/* navigashun */
+
+#hnav {
+    margin: 8px auto;
+    height: 28px;
+}
+
+#hmenu {
+    margin: 2px 5px 0 0;
+    text-transform: lowercase;
+    text-align: right;
+    float: right;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 24px;
+}
+
+#top {
+ display: inline;
+ list-style-type: none;
+}
+
+#session-info {
+    float: left;
+    text-align: left;
+    padding: 5px 0px 0px 25px;
+    font-size: 0.9em;
+    /*font-family: Georgia, "Times New Roman", Times, serif;*/
+
+}
+
+/* form stuff */
+
+.form-label {
+    /*font-family: Georgia, "Times New Roman", Times, serif;*/
+    display: block;
+    margin-top: 0px;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.form-label-mini {
+    /*font-family: Georgia, "Times New Roman", Times, serif;*/
+    font-size: 0.8em;
+}
+
+div.form-element {
+    width: 600px;
+    font-size: 0.9em;
+    padding-left: 2px;
+    margin-bottom: 15px;
+}
+
+/* here goeth my changes ;) */
+
+div.above-the-belt {
+	width:  100%;
+	margin: 2px;
+}
+
+div.above-the-belt > div {
+	min-height: 150px;
+	width: 50%;
+	text-align: center;
+}
+
+#above-right {
+	float: right;
+}
+
+div.the-belt {
+	width: 100%;
+	margin: 0px;
+	background-color: #000;
+}
+
+div.the-belt > div {
+	background-color: #000;
+	color:  #fff;
+	height: 45px;
+	text-align: center;
+}
+
+#belt-right {
+	float: right;
+	width: 45%;
+}
+
+#belt-buckle {
+	float: right;
+	width: 10%;
+}
+
+#belt-buckle > img {
+    height: 75px;
+    width: 75px;
+    margin-top: -15px;
+}
+
+#belt-left {
+	width: 45%;
+}
+
+div.below-the-belt {
+    margin-top: 23px;
+}
+
+div.metric {
+    width: 100%;
+    min-height: 100px;
+}
+
+div.metric .graph {
+    float: right;
+    width: 68%;
+}
+
+div.metric .info {
+    width: 32%;
+}
+
+/* style-new.css follows */
+
+@charset "UTF-8";
+/* CSS Document */
+
+body.site-body {
+    margin: 0;
+    padding: 0;
+    font-family: Verdana, Geneva, sans-serif;
+    color: #545454;
+}
+img {
+    border: none;
+}
+input, button {
+    padding: 3px 8px 3px 8px;
+    border: 1px solid #333;
+    
+}
+h1, h2, h3, h4, h5, h6 {
+    font-family: “Adobe Caslon Pro”, “Hoefler Text”, Georgia, Garamond, Times, serif;
+}
+object {
+    outline: none;
+}
+a {
+    text-decoration: none;
+    color: #B73932;
+}
+a:hover {
+    text-decoration: underline;
+    color: #D55047;
+}
+/* Development Flag */
+.dev-bar {
+    width: 100%;
+    height: 30px;
+    text-align: center;
+    text-decoration: line-through;
+    text-transform:uppercase;
+    background-color: #EDF2F9;
+    color: #B73932;
+    font-size: 1.5em;
+    font-weight: bold;
+    font-family: “Adobe Caslon Pro”, “Hoefler Text”, Georgia, Garamond, Times, serif;
+}
+/* Header */
+.site-header {
+    background: url(/img/header-bg.png) repeat-x;
+    height: 155px;
+    border-bottom: none;
+    padding: 0;
+}
+#header-inner {
+    width: 820px;
+    margin: 0px auto;
+}
+#praux-logo {
+    width: 140px;
+    height: 155px;
+    display: block;
+}
+#session-info {
+    float: right;
+    /*margin-top: 65px;*/
+    margin-right: 20px;
+    color: #FFF;
+    font-size: 0.9em;
+    /*width: 600px;*/
+}
+#logged-in-top {
+    width: 630px;
+    margin-top: 30px;
+}
+#login {
+    margin-top: 65px;
+}
+#login-id {
+    text-align: right;
+}
+#top-nav {
+    text-align: right;
+    font-size: 1.3em;
+    margin-top: 10px;
+}
+#logged-in-top a {
+    color: #FFFFFF
+}
+#logged-in-top a:hover {
+    color: #DDDDDD;
+    text-decoration: none;
+}
+/* Content */
+.content {
+    width: 780px;
+    margin: 0px auto;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 50px;
+}
+/* Sign Up Area */
+#sign-up {
+    width: 250px;
+    height: 265px;
+    /*margin-top: 32px;*/
+    float: right;
+    background-color: #EDF2F9;
+    padding: 25px 25px 58px 25px;
+    border: 1px solid #CCC;
+    /*margin-top: 80px;*/
+}
+#sign-up h2 {
+    font-size: 2.3em;
+    color: #B73932;
+    margin-left: 0;
+    margin-bottom: 18px;
+}
+#sign-up h3 {
+    color: #131313;
+    margin: 4px 0;
+}
+#sign-up input {
+    height: 30px;
+    width: 244px;
+    margin-bottom: 8px;
+    font-size: 1.4em;
+    padding: 0 3px;
+    background: url(/img/signup-field-bg.png) 0 0 repeat-x;
+}
+#sign-up button.create-account {
+    border: 2px solid #663333;
+    background-color: #B73932;
+    color: #FFF;
+    width: 250px;
+    height: 55px;
+    margin-top: 25px;
+    margin-bottom: 20px;
+    font-size: 1.5em;
+    font-family: “Adobe Caslon Pro”, “Hoefler Text”, Georgia, Garamond, Times, serif;
+    background: url(/img/acct_btn_bg.png) 0 0 repeat-x;
+    font-weight: bold;
+}
+/* recent additions */
+#recent-additions {
+    padding-top: 25px;
+}
+#recent-additions h3 {
+    color: #B73932;
+}
+/* Promo Content */
+h1.tag-line {
+    font-size: 3.4em;
+    color: #B73932;
+    margin-bottom: 15px;
+}
+.black-bar {
+    width: 780px;
+    height: 35px;
+    background-color: black;
+    color: white;
+    font-family: courier, courier new, georgia, serif;
+    text-align: center;
+    font-size: 24px;
+    padding-top: 4px;
+}
+#promo-content {
+}
+#promo-content p {
+    font-size: 0.85em;
+}
+/* Below the Belt */
+#belt-logo {
+    width: 100%;
+    height: 101px;
+    background: url(/img/belt-logo-bg-tile.png) repeat-x;
+    margin: 0;
+    padding: 0;
+}
+#belt-logo img {
+    width: 100px;
+    height: 101px;
+    display: block;
+    margin: 0px auto;
+}
+#content-bottom {
+    margin-top: 0;
+    background: url(/img/bottom-content-tile.png) repeat;
+}
+/* Charts */
+#charts {
+    float: right;
+    width: 380px;
+    display: block;
+}
+#content-top h3 {
+    color: #B73932;
+}
+.chart-wrapper .legend {
+    float: left;
+}
+.chart-wrapper .chart {
+    float: right;
+}
+.chart-wrapper h3 {
+    color: #B73932;
+}
+.legend table {
+    background: url(/img/bottom-content-tile.png) repeat;
+}
+.legend td {
+    background: url(/img/bottom-content-tile.png) repeat;
+    border: none;
+}
+/* Stats */
+#stats {
+    width: 380px;
+}
+.stat h2 {
+    color: #B73932;
+}
+.stat ul {
+    color: #B73932;
+}
+.stat li a {
+    color: #000000;
+}
+.stat a.more {
+    float: right;
+    color: #878787;
+    margin-right: 30px;
+}
+.stat a.more:hover {
+    color: #B73932;
+}
+/* Footer */
+#footer {
+    background: #cf4c43 url(/img/bottom-tile.png) repeat-x;
+    width: 100%;
+    height: 73px;
+    display: block;
+}
+.footer-inner {
+    background: #cf4c43 url(/img/bottom-tile.png) repeat-x;
+    border: none;
+}
+#footer-inner {
+    padding-top: 3px;
+    font-size: 0.9em;
+}
+#footer-inner p {
+    margin:0 auto;
+    padding: 2px 20px;
+    text-align: center;
+    color: #D7DDE4;
+}
+#footer-inner a {
+    color: #D7DDE4;
+    text-decoration: underline;
+}
+#footer-inner a:hover {
+    text-decoration: none;
+    color: #FFF;
+}
+/* Classes */
+.clear-both {
+    clear: both;
+}
+
+/* Tables */
+.table_container {
+        padding: 5px;
+        border: none;
+        background-color: #FFF;
+    }
+    table.resume_list {
+        border: none;
+        background-color: #fff;
+    }
+    tr.header_row {
+        font-weight: bold;
+    }
+    td {
+        /*border: 1px black solid;*/
+        padding: 5px;
+        background-color: #FFF;
+    }
+    tr.header_row th {
+        border-bottom:1px solid #FFFFFF;
+        border-top:4px solid #D7DDE4;
+        background-color: #EDF2F9;
+        padding: 5px;
+    }
+    tr.spacer {
+        border: none;
+        background-color: #fff;
+    }
+    td.spacer {
+        border: none;
+        background-color: #fff;
+    }
+
+    tr.resume {
+        background-color: #fff;
+    }
+    tr.summary {
+        background-color: #fff;
+    }
+    tr.even td {
+        background-color: #EDF2F9;
+    }
+    tr.summary td {
+        border-top: 2px dotted #CCC;
+    }
+    tr.resume.odd td {
+        border-top:4px solid #D7DDE4;
+    }
+    tr.summary.odd td {
+        border-bottom:4px solid #D7DDE4;
+    }
+    div.search_container {
+        padding: 4px;
+    }
+    
+/* Error Msg */
+.error-wrapper {
+    background: url(/img/error_bg.png) 0 0 no-repeat;
+    width: 590px;
+    height:380px;
+    padding: 100px 50px;
+    display: block;
+    margin: 40px auto;
+}
+.error-msg {
+    padding-top: 200px;
+    padding-left: 40px;
+    width: 500px;
+}
+/* Pages */
+
+/* About Us */
+#about-us{
+	padding: 5px;
+}
+#about-us h2 {
+	margin: 10px 0;
+	color: #D3625F;
+	padding-bottom: 2px;
+	border-bottom: 1px dashed #D7DDE4;
+}
+#about-us p.intro {
+	color: #686868;
+	font-size: 1.1em;
+}
+ul#we-are, ul#we-are-not {
+    list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+ul#we-are li {
+	background-image:url(/img/tick.gif);
+	background-position:0 0.7em;
+	background-repeat:no-repeat;
+	padding:5px 0 5px 45px;
+	margin: 0;
+}
+ul#we-are-not li {
+	background-image:url(/img/ex.gif);
+	background-position:0 0.7em;
+	background-repeat:no-repeat;
+	padding:5px 0 5px 45px;
+	margin: 0;
+}
+ul#we-are b, ul#we-are-not b {
+	color: #5B93B5;
+	font-size: 1.1em;
+}
+
+#praux-menu {
+   text-align: center;
+   margin-left: 125px;
+   margin-top: -45px;
+}
+
+#praux-menu table, #praux-menu tr, #praux-menu td {
+    border: none;
+    white-space: nowrap;
+}
+
+.jbar{
+	height:50px;
+	width:100%;
+	background-color: #fff;
+	position:fixed;
+	filter:progid:DXImageTransform.Microsoft.Alpha(opacity=95); 
+	opacity: 0.95;
+	-moz-opacity: 0.95;
+	text-align:center;
+	left:0px;
+	z-index:9999999;
+	margin:0px;
+	padding:0px;
+}
+.jbar-top{
+	top:0px;
+	border-top:2px solid #fff;
+	border-bottom: 1px solid #ebebeb;
+}
+.jbar-bottom{
+	bottom:0px;
+	border-bottom:2px solid #fff;
+	border-top: 1px solid #ebebeb;
+	color:#777;
+}
+.jbar-content{
+	line-height:46px;
+	font-size: 18px;
+	font-family:'Lucida Grande',sans-serif;
+}
+a.jbar-cross{
+	position:absolute;
+	width:31px;
+	height:31px;
+	background:transparent url(/img/cross.png) no-repeat top left;	
+	cursor:pointer;
+	right:10px;
+}
+a.jbar-cross:hover{
+	background-image: url(/img/cross_hover.png)
+}
+.jbar-top a.jbar-cross{
+	top:8px;	
+}
+.jbar-bottom a.jbar-cross{
+	bottom:8px;
+}
+
+/* mini profile */
+.empty-stars {
+    display: block;
+    width: 102px;
+    height: 17px;
+    background-repeat: no-repeat;
+    background-image: url(/img/stars.png);
+    z-index: 2;
+}
+.mini-profile-container {
+    width: 250px;
+    font-family: Verdana, Geneva, sans-serif;
+    padding: 2px;
+    color: #B73932;
+}
+.mini-profile-container:hover {
+    background-color: #EDF2F9;
+}
+.mini-profile-photo {
+    float: left;
+    padding-right: 2px;
+}
+.mini-profile-name {
+    font-size: 14px;
+}
+.mini-profile-title {
+    font-size: 11px;
+    font-weight: normal;
+    color: black;
+    text-decoration: none;
+}
+.rating-container {
+    display: inline-block;   
+}

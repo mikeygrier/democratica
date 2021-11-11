@@ -1,0 +1,24 @@
+% layout 'idp';
+% title 'Login • MeritCommons Identity Provider';
+
+<div id="content-wrapper" class="container">
+    <h1>Authorization Summary</h1>
+    <div class="lead muted well">
+        <form class="form-signin" action="<%= $redirect_uri %>" method="get">
+            <input type="hidden" name="code" value="<%= $code %>"/>
+            <% if (my $state = $self->stash('state')) { %>
+                <input type="hidden" name="state" value="<%= $state %>"/>
+            <% } %>
+            <p>
+                Clicking "Authorize" will authorize <%= $client->common_name %> to do the following on your behalf:
+            </p>
+            <ul>
+                <% foreach my $scope (@{$self->stash('scope')}) { %>
+                    <li><%= ref $scope ? $scope->description : $scope %></li>
+                <% } %>
+            </ul>
+            <button name="deny" value="1" class="btn btn-lg btn-warning btn-block" type="cancel">Deny</button>
+            <button name="authorize" value="1" class="btn btn-lg btn-success btn-block" type="submit">Authorize</button>
+        </form>
+    </div>
+</div> <!-- /container -->

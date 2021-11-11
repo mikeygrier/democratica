@@ -1,0 +1,43 @@
+    <% UNLESS is_front %>
+	</div> <!-- /praux-container -->
+	<% END %>
+	
+	<div id="footer">
+      <div id="footer-inner">
+        <table class="footer-inner" width="100%">
+            <tr class="footer-inner">
+                <td width="15%" class="footer-inner">
+                    &nbsp;
+                </td>
+                <td width="70%" class="footer-inner">
+                    <% IF self.is_dev %><p>I thought about this page for: <% romeo.time_taken %> seconds</p><% END %>
+                    <p>&copy; 2012 HyperHive Inc, all rights reserved<br/></p>
+                    <p>praux.com - <% IF self.is_dev %> <% self.version %> - <span style='text-decoration: line-through'>DEVELOPMENT</span> - <% END %> <a href="<% self.root_url %>/page/privacy/">privacy</a> - <a href="<% self.root_url %>/page/tos/">terms of service</a> - <a href="<% self.root_url %>/page/about_us/">about</a> - <a href="<% self.root_url %>/page/master_list/">master list</a> - <a href="http://blog.praux.com/">blog</a> - <a href="http://help.praux.com">help</a></p>
+                </td>
+                <td width="15%" class="footer-inner" align="center">
+                    <a href="http://hyperhive.me" title="Praux.com is a part of the HyperHive Collective (black and yellow, black and yellow, black and yellow, black and yellow)" border="0"><img src="/img/hyperhive_small.png" border="0"/></a>
+                </td>
+            </tr>
+        </table>
+
+      </div><!-- /footer-inner -->
+    </div><!-- /footer -->
+    <% IF self.instance != "ssl" %>
+        <script type="text/javascript"></script>
+    <% END %>
+    <% IF fb %>
+        <div id="fb-root"></div>
+        <script>
+          window.fbAsyncInit = function() {
+            FB.init({appId: '<% self.c.FB_API_KEY %>', status: true, cookie: true, xfbml: true});
+          };
+          (function() {
+            var e = document.createElement('script'); e.async = true;
+            e.src = document.location.protocol +
+              '//connect.facebook.net/en_US/all.js';
+            document.getElementById('fb-root').appendChild(e);
+          }());
+        </script>
+    <% END %>
+    </body>
+</html>

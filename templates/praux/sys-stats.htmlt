@@ -1,0 +1,60 @@
+<% title = "System Statistics" %>
+<% no_menu = 1 %>
+<% INCLUDE praux/header.htmlt %>
+    <div style="padding: 5px">
+        <% IF self.active_user AND (self.active_user.email == 'jaebrown@gmail.com' OR self.active_user.email == 'mike@mg2.org') %>
+        <% recent_suggestions = self.active_user.recent_suggestions_paged(self.romeo.param('page')) %>
+        <% pager = recent_suggestions.pager %>
+            <h1>Overall System Stats</h1>
+            <table>
+                <tr>
+                <th>Label</th>
+                <th>Number</th>
+                </tr>
+                <tr>
+                    <td># of Users</td>
+                    <td><% self.schema.resultset('User').count %></td>
+                </tr>
+                <tr>
+                    <td># of Resumes</td>
+                    <td><% self.schema.resultset('Resume').count %></td>
+                </tr>
+            </table>
+            <h1>New Users Created By Week</h1>
+            <table>
+                <tr>
+                    <th>Week Starting</th>
+                    <th># of new users</th>
+                </tr>
+                <% FOREACH stat = self.report.users_created_by_week %>
+                <tr>
+                    <td><% stat.date %></td>
+                    <td><% stat.count %></td>
+                </tr>
+                <% END %>
+            </table>
+            <h1>100 most active users</h1>
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Email Address</th>
+                    <th>Action Count</th>
+                    <th>Completeness</th>
+                    <th>Create Time</th>
+                </tr>
+                <% FOREACH user = self.report.most_active_users(100) %>
+                <tr>
+                    <td><a href="http://<% user.resume.instance %>.praux.com/"><% user.common_name %></a></td>
+                    <td><% user.email %></td>
+                    <td><% user.actions.count %><% user.actions.size %></td>
+                    <td><% user.resume.completeness %>%</td>
+                    <td><% self.pretty_date_with_year(user.create_time) %></td>
+                </tr>
+                <% END %> 
+            </table>
+                
+        <% ELSE %>
+            <h1>Log In And Be An Admin Please</h1>
+        <% END %>
+    </div>
+<% INCLUDE praux/footer.htmlt %>

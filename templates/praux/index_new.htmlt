@@ -1,0 +1,38 @@
+<% title = "Welcome to Praux.com" %>
+<% sub_title = "<span style='font-size: 16px;'>The Premiere Resume Editor &amp; Host - Prauxnounced 'Pro Dot Com'</span>" %>
+<% INCLUDE praux/header.htmlt %>
+    <div id="container">
+        <div class="above-the-belt">
+            <div id="above-right">
+                I'm on the right, and I'm in a box!
+            </div>
+            
+            <div id="above-left">
+                I'm on the left, I'm also in a box ;)
+            </div>
+        </div>
+        
+        <div class="the-belt">
+            <div id="belt-right">
+                I'm to the right of the belt buckle!
+            </div>
+            <div id="belt-buckle">
+                <img src="/img/pc.png"/>
+            </div>
+            <div id="belt-left">
+                I'm to the left of the belt buckle!
+            </div>
+        </div>
+        
+        <div class="below-the-belt">
+            <div class="metric">
+                <div class="graph">
+                    I'm a graph
+                </div>
+                <div class="info">
+                    I'm some info
+                </div>
+            </div>
+        </div>    
+    </div>
+<% INCLUDE praux/footer.htmlt %>

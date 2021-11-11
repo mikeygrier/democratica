@@ -1,0 +1,44 @@
+<% title = "Resume Master List" %>
+<% no_menu = 1 %>
+<% INCLUDE praux/header.htmlt %>
+    <div style="padding: 5px">
+    <% resumes = self.all_resumes_paged(self.romeo.param('page')) %>
+    <% pager = resumes.pager %>
+    <h1>Resumes on Praux.com</h1>
+    <table>
+        <tr>
+            <th>Resume</th>
+            <th>Create Date</th>
+            <th>Owner</th>
+        </tr>
+        <% FOREACH resume = resumes.all %>
+        <tr>
+            <td><a href="<% resume.url %>/"><% resume.url %></a></td>
+            <td><% self.pretty_date(resume.create_time) %></td>
+            <td><% resume.name %></td>
+        </tr>
+        <% END %>
+    </table>
+    <% IF pager.last_page == 1 %>
+        &lt;&lt;&nbsp;&lt;&nbsp;&gt;&nbsp;&gt;&gt;&nbsp;
+    <% ELSE %>
+        <% IF pager.last_page == pager.current_page %>
+            <a href="/page/resumes_paged/?page=<% pager.first_page %>">&lt;&lt;</a>
+            &nbsp;<a href="/page/resumes_paged/?page=<% pager.previous_page %>">&lt;</a>
+            &gt; &gt;&gt;&nbsp;
+        <% ELSIF pager.current_page == 1 %>
+            &lt;&lt;&nbsp;&lt;&nbsp;
+            <a href="/page/resumes_paged/?page=<% pager.next_page %>">&gt;</a>
+            &nbsp;<a href="/page/resumes_paged/?page=<% pager.last_page %>">&gt;&gt;</a>    
+            &nbsp;
+        <% ELSE %>
+            <a href="/page/resumes_paged/?page=<% pager.first_page %>">&lt;&lt;</a>
+            &nbsp;<a href="/page/resumes_paged/?page=<% pager.previous_page %>">&lt;</a>
+            &nbsp;<a href="/page/resumes_paged/?page=<% pager.next_page %>">&gt;</a>
+            &nbsp;<a href="/page/resumes_paged/?page=<% pager.last_page %>">&gt;&gt;</a>
+            &nbsp;
+        <% END %>
+    <% END %>
+    Resumes <% pager.entries_per_page * (pager.current_page - 1) + 1 %> - <% pager.entries_per_page * (pager.current_page - 1) + pager.entries_on_this_page %> of <% pager.total_entries %>.
+    </div>
+<% INCLUDE praux/footer.htmlt %>

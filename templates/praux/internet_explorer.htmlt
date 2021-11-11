@@ -1,0 +1,24 @@
+<% title = "Internet Explorer Detected - Google Chrome Frame Recommended" %>
+<% sub_title = "<span style='font-size: 16px;'>Ouch.. you're using Internet Explorer</span>" %>
+<% INCLUDE praux/header.htmlt %>
+    <div style="padding: 5px">
+        <p>Yeah.. I know what you're thinking.  How can <em>this site</em> that looks like it was made in 1993 possibly be complaining about 
+            old stuff.  It might be hard to believe by looking at the font but Praux.com is based on some pretty bleeding edge technology and 
+            designing for non-standards compliant browsers just wasn't in the cards for us.  We want to make sure your experience here is amazing, 
+            and we want to be able to resolve your problems and answer your questions without all the guesswork that usually comes with dealing 
+            with Internet Explorer.</p>
+        <p>Luckily our friends at <a href="http://google.com">Google</a> have written a plugin that makes Microsoft Internet Explorer more 
+            standards compliant.  Please <a href="http://www.google.com/chromeframe/eula.html">click here</a> to install the 
+            Google Chrome Frame plugin.</p>
+        <p>Of course, you can disregard this message altogether, and <a href="<% IF referer %><% referer %><% ELSE %>/<% END %>">continue using Internet Explorer</a>.  But something might not render right, or 
+            something might not behave the way you expect.  If you're going to go this route, please use the newest version of IE, which, at the 
+            time of this writing, is IE8.</p>
+    
+        <p>Alternatively.. You can install one of these alternative browsers:</p>
+        <ul>
+            <li><a href="http://www.google.com/chrome">Google Chrome</a></li>
+            <li><a href="http://www.mozilla.com/firefox/">Mozilla Firefox</a></li>
+            <li><a href="http://www.apple.com/safari/">Apple Safari</a></li>
+        </ul>
+    </div>
+<% INCLUDE praux/footer.htmlt %>

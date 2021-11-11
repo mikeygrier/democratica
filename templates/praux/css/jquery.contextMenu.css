@@ -1,0 +1,68 @@
+/* Generic context menu styles */
+.contextMenu {
+	position: absolute;
+	width: 120px;
+	z-index: 99999;
+	border: solid 1px #CCC;
+	background: #EEE;
+	padding: 0px;
+	margin: 0px;
+	display: none;
+}
+
+.contextMenu li {
+	list-style: none;
+	padding: 0px;
+	margin: 0px;
+}
+
+.contextMenu li:before {
+    content: "";
+}
+
+.contextMenu A {
+	color: #333;
+	text-decoration: none;
+	display: block;
+	line-height: 20px;
+	height: 20px;
+	background-position: 6px center;
+	background-repeat: no-repeat;
+	outline: none;
+	padding: 1px 5px;
+	padding-left: 28px;
+}
+
+.contextMenu LI.hover A {
+	color: #FFF;
+	background-color: #3399FF;
+}
+
+.contextMenu LI.disabled A {
+	color: #AAA;
+	cursor: default;
+}
+
+.contextMenu LI.hover.disabled A {
+	background-color: transparent;
+}
+
+.contextMenu LI.separator {
+	border-top: solid 1px #CCC;
+}
+
+/*
+	Adding Icons
+	
+	You can add icons to the context menu by adding
+	classes to the respective LI element(s)
+*/
+
+.contextMenu LI.delete A { background-image: url(/img/del_16x16.png); }
+.contextMenu LI.add A { background-image: url(/img/add_16x16.png); }
+.contextMenu LI.edit A { background-image: url(/img/edit_16x16.png); }
+.contextMenu LI.views A { background-image: url(/img/srch_16x16.png); }
+.contextMenu LI.suggestions A { background-image: url(/img/help_16x16.png); }
+.contextMenu LI.score-up A { background-image: url(/img/up_16x16.png); }
+.contextMenu LI.score-down A { background-image: url(/img/down_16x16.png); }
+.contextMenu LI.lift A { background-image: url(/img/copy_16x16.png); }

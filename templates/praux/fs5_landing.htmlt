@@ -1,0 +1,13 @@
+<% title = "Welcome FS5 Consulting Jobseeker" %>
+<% no_menu = 1 %>
+<% INCLUDE praux/header.htmlt %>
+    <div style="padding: 5px">
+        <h3>Welcome to the Jobseekers of FS5 Consulting.</h3>
+        <p>Please post your resume here. We send our recruiters and employers to this database to review resumes and source candidates to interview.</p>
+        <p>Ensure you use the most detailed version of your resume. Since most recruiters use keyword searches to find candidates, the most detailed version has the greatest likelihood of being found by a recruiter in a database search.</p>
+        <p><a href="https://ssl<% self.romeo.c.COOKIE_DOMAIN %>/r1/" title="Sign up for Praux.com">Click here to get started on your Praux.com resume.</a></p>
+        <p>Good Luck</p>
+        <p>FS5 Consulting</p>
+        <a href="http://fs5consulting.com" title="Military Job Hunts"><img src="/img/fs5_logo.jpg" border="0"/></a>
+    </div>
+<% INCLUDE praux/footer.htmlt %>

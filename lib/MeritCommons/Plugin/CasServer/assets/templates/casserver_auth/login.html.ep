@@ -1,0 +1,22 @@
+% layout 'idp';
+% title 'Login • MeritCommons Identity Provider';
+% use Mojo::Util qw(b64_encode url_escape url_unescape);
+
+<div id="content-wrapper" class="container">
+    <form class="form-signin" action="/cas/login<%= ($self->param('TARGET')) ? '?TARGET=' . url_escape($self->param('TARGET')) : undef %>" method="post" >
+        <h1 class="page-header form-signin-heading">Log In</h1>
+        <% if ($self->stash('message')) { %> 
+        <div class="form-signin-message lead muted">
+            <%= $self->stash('message') %>
+        </div>
+        <% } %>
+        <input name="username" type="text" class="form-control" placeholder="Username" autofocus="">
+        <input name="password" type="password" class="form-control" placeholder="Password">
+        <input type="hidden" name="lt" value="<%= $self->stash('login_ticket') %>">
+        <input type="hidden" name="renew" value="<%= $self->stash('renew') %>">
+        <input type="hidden" name="service" value="<%= $self->stash('service') %>">
+        <input type="hidden" name="warn" value="<%= $self->stash('warn') %>">
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>
+    </form>
+</div>
+<!-- /container -->

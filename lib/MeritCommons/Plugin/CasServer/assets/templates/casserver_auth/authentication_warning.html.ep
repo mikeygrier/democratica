@@ -1,0 +1,11 @@
+% layout 'idp';
+% title 'Login • MeritCommons Identity Provider';
+
+<div id="content-wrapper" class="container">
+    <div class="lead muted well">
+        An application has requested to authenticate your identity.  Would you like to authenticate?<br />
+
+        <span><a class='btn' href='<%= $self->stash('redirect_url') %>'>Yes</a></span>
+        <span><a class='btn' href='/cas/cancel_authentication'>No</a></span>
+    </div>
+</div> <!-- /container -->

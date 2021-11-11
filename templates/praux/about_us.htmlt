@@ -1,0 +1,49 @@
+<% title = "Praux.com - About Us" %>
+<% sub_title = "<span style='font-size: 16px;'>About Praux.com</span>" %>
+<% no_menu = 1 %>
+<% INCLUDE praux/header.htmlt %>
+    <div id="about-us">
+        <p class="intro">Hello and welcome to Praux.com (prauxnounced like "Pro") - Your Best Resume Realized!  We are excited to give you a structured 
+        yet free-form way to market your personal professional identity online!  We're not here to promote ourselves, we're here to prauxmote you!</p>
+        <h2>What we are</h2>
+        <ul id="we-are">
+        	<li><b>A content hub</b>: We want to host, not own, your resume. You will notice a little '© YYYY Your Name' at the bottom of your 
+            Praux.com resume. That's because we want everyone to know that YOU are the owner of your identity, not us. You can link to your content
+            hosted here from any other social site, and we encourage those sites to integrate with us by maintaining and publishing open APIs that 
+            allow them to get at useful data efficiently.</li>
+        	<li><b>A community</b>: We want to encourage a spirit of helping one another. Let's face it... it's tough out there right now. We need 
+            to remember, we're all in this together.  Praux.com allows all of you to actively contribute to each others resumes in a whole new 
+            way. We are capturing all of the work you do at this very moment and will soon have tools and leader boards that will recognize leading 
+            contributors. Who knows, we might even work up to an annual Prauxfessionalle Award Ceremony some day to give proper credit to those 
+            helpful and kind folks who make this site so unique.</li>
+        	<li><b>A resource</b>: We will be providing tips and techniques, with a bit of entertainment, while you perform the otherwise mundane task 
+            of keeping your resume up to date. We're going to be creative in the delivery of this content, and we will strive to break molds... 
+            like we have with the 'Prauxtron' resume editor.  The 'Prauxtron' allows you to edit your content in place with an easy to use 
+            'What You See Is What You Get' interface. If you have any questions, please don't hesitate to <a href="mailto:admin@praux.com">Contact Us</a>.</li>
+            <li><b>An <a href="http://openid.net" style="border: none;"><img src="/img/openid.png" height="40" width="106"/></a> provider</b>: 
+                You can use your Praux.com resume URL and credentials to authenticate to any web site that uses OpenID for authentication.</li>
+        </ul>
+        <h2>What we are not</h2>
+        <ul id="we-are-not">
+        	<li><b>A social network</b>: We really think this base is more than adequately covered. Between Facebook™, Twitter™, LinkedIn™ and MySpace™, 
+            we already know who your friends are, who your boss is, heck we even know who your cousin Jerry's Mom's boss was at Arbor Drugs back 
+            in the 80s. It's been done and done and done some more, so we're not going to bother doing that. We want to maintain our focus on providing 
+            quality resume editing and hosting services for you, and do as much integration work with the other sites as we can, without becoming 
+            another face in the social networking crowd.</li>
+        	<li><b>A career site</b>: Now this is tricky, because we technically /are/ a career site, just a vastly different career site than any you 
+            may have seen thus far.  We aren't trying to connect you to your next job using exclusive relationships that we have with one employer or 
+            another in the way that Monster.com or CareerBuilder does.  We're giving you a new way to do that for yourself.  We want to mash up the 
+            rest of the new web, and give you all of the options that are actually out there in one easy-to-use and highly adaptable interface. We don't 
+            want to shoe horn you into one category or another.  We want you to find a career based on your own unique merits, so we're giving you a 
+            means to do just that. We want to give you a place to keep your identity so you can spread it across the internet!</li>
+        	<li><b>A guaranteed job</b>: While we are sure that having a Praux.com resume will show potential employers what a forward-thinking and 
+            future focused person you are, there is much more than just appearances involved in landing that job. We can't promise that you will get 
+            that next job, but we will help you present the best possible resume that you can and increase your odds.  We do hope that the site and 
+            community will greatly help to improve your professional image and assist you in your search for that dream career.  By presenting yourself 
+            through a well-edited and maintained resume, you're showing a potential employer that you're on top of your game and ready to tackle the new 
+            challenges of our modern world.  Praux.com is glad to be a part of your ongoing career development and we're proud of you, you're taking a 
+            big step towards getting that life and career you deserve.</li>
+         </ul>
+    </div>
+    <!-- ps, we love you! &copy; 2010 the mg2 organization, praux.com, etc etc etc. -->
+<% INCLUDE praux/footer.htmlt %>

@@ -1,0 +1,51 @@
+<% title = "Update Resume Information" %>
+<% sub_title = "<span style='font-size: 16px;'>Updating " _ self.romeo.instance _ "</span>" %>
+<% no_menu = 1 %>
+<% INCLUDE praux/header.htmlt %>
+    <div style="padding: 5px">
+		<form name="edit_resume" method="post" action="<% romeo.romeo_location %>/edit_resume/">
+
+		<% IF romeo.param('error') %>
+		    <p class="error">Error <% romeo.param('error') %></p>
+		<% END %>
+
+    	    <input type="hidden" name="is_submit" value="1"/>
+
+			<div class="form-element">
+		        <label class="form-label">Full Name</label>
+		        <input type="text" class="medium" name="name" value="<% self.resume.name %>"/>
+			</div>
+			<div class="form-element">
+		        <label class="form-label">Email</label>
+		        <input type="text" class="medium" name="email" value="<% self.resume.email %>"/>
+			</div>
+			<div class="form-element">
+		        <label class="form-label">Telephone Number</label>
+		        <input type="text" class="medium" name="phone" value="<% self.resume.phone %>"/>
+			</div>
+			<div class="form-element">
+		        <label class="form-label">Home Address</label>
+		        <input type="text" class="medium" name="address" value="<% self.resume.address %>"/>
+			</div>
+            <br/>
+			<div class="form-element">
+		        <input style="height:20px" type="submit" value="Save Changes"/> or <a class="modal-close" href="/edit/">Cancel</a>
+			</div>
+			
+			<script type="text/javascript">
+			    $(function() {
+			        $('#delete_confirm').click(function() {
+    			        var a = confirm('Really Delete This Resume?');
+    			        if (a) { 
+    			            return true;
+    			        }
+    			        return false;
+			        });
+			    });
+			</script>
+			<div style="width:100%; text-align: right">
+			    <a id="delete_confirm" style="font-size: 11px" href="/edit_resume/?delete=1">Delete This Resume</a>
+			</div>
+		</form>
+    </div>
+<% INCLUDE praux/footer.htmlt %>

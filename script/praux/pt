@@ -1,0 +1,48 @@
+#!/usr/bin/env perl
+
+use LWP::UserAgent;
+use JSON;
+
+my $VERSION = "0.01";
+my $pturl = "http://praux.com/pt";
+
+unless ($ARGV[0]) {
+    die "Usage: pt <function> k=[v,v],k=[v,v]\n";
+}
+
+my $ua = new LWP::UserAgent;
+my $json = new JSON;
+$ua->agent('PrauxTools Command Line Utility v' . $VERSION);
+
+my $function = $ARGV[0];
+my %form = ();
+
+my $rest = join(/ /, @ARGV[1..$#ARGV]);
+
+foreach my $option (split(/\W,/, $rest)) {
+    my ($k, $v) = split(/=/, $option);
+
+    my @values;
+    if ($v =~ /^\[([^\]]+)/) {
+        @values = split(/,/, $1);
+    } else {
+        @values = ($v);
+    }
+    $form{$k} = \@values;
+}
+
+my $resp = $ua->post("$pturl/$function.json", \%form);
+
+if ($resp->is_success) {
+    my $hr = $json->decode($resp->decoded_content);
+    if ($hr->{success} == 0) {
+        die "pt $function: [error] $hr->{error}\n";
+    } else {
+        use Data::Dumper;
+        print Dumper($hr);
+    }
+} else {
+    die $resp->status_line;
+}
+
+

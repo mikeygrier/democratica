@@ -1,0 +1,25 @@
+<% src.common_name %> has suggested you change the following text on your resume: 
+
+FROM
+
+'<% sug.current_value %>' 
+
+TO 
+
+'<% sug.suggested_value %>'
+
+To review this, and other suggestions you may have about this particular block of text, you can visit: 
+
+<% self.romeo.app_base %>/edit/<% self.romeo.param('language_context') %>/.suggestions_for/<% sug.html_id %>/
+
+----------------------
+Resumes by Praux.com
+suggestions@praux.com
+----------------------
+
+<% IF src.id == tgt.id %>
+
+
+
+p.s. why are you making suggestions to yourself?
+<% END %>

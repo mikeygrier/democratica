@@ -1,0 +1,56 @@
+<% title = "A Few More Details" %>
+<% sub_title = "<span style='font-size: 16px;'>A few more details...</span>" %>
+<% no_login_box = 1 %>
+<% no_menu = 1 %>
+<% meta_description = "Praux.com seeks to become a catalyst in modernizing the online career seeker’s playing field. By establishing and publishing standards, integration points, and internet communities, Praux.com aims to become the premier hub for career information sourced from individuals, universities and employers. Leveraging existing technology wherever we can, we will uniformly present this information to potential employers, allow them to use more modern social networking workflows, and strengthen the effectiveness of communication between employee and employer." %>
+<% meta_title = "Praux.com - Your Best Resume Realized!" %>
+<% INCLUDE praux/header.htmlt %>
+    <div style="padding: 5px">
+		<form name="registration" method="post" action="<% romeo.romeo_location %>/r2/">
+		<% IF error %>
+		    <p class="error">Error <% error %></p>
+		<% END %>
+
+    	    <input type="hidden" name="is_submit" value="1"/>
+
+			<div class="form-element">
+		        <label class="form-label">Email Address</label>
+		        <input type="text" class="medium" name="register_email" value="<% self.session.register_email %>"/>
+			</div>
+			
+			<div class="form-element">
+			    <label class="form-label">Full Name</label>
+			    <input type="text" class="medium" name="register_common_name" value="<% self.session.register_common_name %>"/>
+			</div>
+			
+			<% IF self.session.register_password %>			
+    			<div class="form-element">
+    		        <label class="form-label">Confirm Password</label>
+    		        <input type="password" class="medium" name="register_password"/>
+    			</div>
+    		<% ELSE %>
+        		<div class="form-element">
+    				<div style="float:left; padding-right: 5px;">
+    			        <label class="form-label">Password</label>
+    			        <input type="password" class="medium" name="password"/>
+    				</div>
+    				<div style="float:left">
+    			        <label class="form-label">Confirm Password</label>
+    			        <input type="password" class="medium" name="password_confirm"/>
+    				</div>
+    				<div style="clear:left"></div>
+    			</div>
+			<% END %>
+			
+		    <div class="form-element">
+		        <input type="checkbox" name="accepted_terms_of_service" id="tos_accept_cb" <% IF self.session.accepted_terms_of_service %>checked<% END %> value="1"/>
+			    <span id="tos_accept">I have read and understand the Praux.com <a href="/page/tos/">Terms of Service</a>.</span>
+    		</div>
+    		
+			<div class="form-element">
+		        <input style="height:20px;width:60px" type="submit" value="Sign up"/> or <a href="javascript:document.location=document.referrer?document.referrer:'http://<% IF self.is_dev %>prauxdev.com<% ELSE %>praux.com<% END %>/'">Cancel</a>
+			</div>
+			
+		</form>
+    </div>
+<% INCLUDE praux/footer.htmlt %>

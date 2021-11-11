@@ -1,0 +1,195 @@
+empty_labels:
+    job:
+        locality: City, ST
+        date_range: Date Range
+        organization: Company Name
+        title: Job Title
+    generic:
+        body: I did something fantastic!
+    section_header:
+        body: Section Name
+    course:
+        instructor: Course Instructor
+        locality: City, ST
+        date_range: Date Range
+        title: Course Name
+    project:
+        date_range: Date Range
+        title: Project Name
+        locality: City, ST
+        organization: Company Name
+        role: Project Role
+    it:
+        job:
+            locality: Località
+            date_range: Intervallo di date
+            organization: Nome Azienda
+            title: Titolo
+        generic:
+            body: Ho fatto qualcosa di fantastico!
+        section_header:
+            body: Nome sezione
+        course:
+            instructor: Docente
+            locality: Località
+            date_range: Intervallo di date
+            title: Nome del corso
+        project:
+            date_range: Intervallo di date
+            title: Nome del progetto
+            locality: Località
+            organization: Nome Azienda
+            role: Progetto di Ruolo
+    en:
+        job:
+            locality: City, ST
+            date_range: Date Range
+            organization: Company Name
+            title: Job Title
+        generic:
+            body: I did something fantastic!
+        section_header:
+            body: Section Name
+        course:
+            instructor: Course Instructor
+            locality: City, ST
+            date_range: Date Range
+            title: Course Name
+        project:
+            date_range: Date Range
+            title: Project Name
+            locality: City, ST
+            organization: Company Name
+            role: Project Role        
+    ko:
+        job:
+            locality: 지방성
+            date_range: 날짜 범위
+            organization: 회사 이름
+            title: 구인 제목
+        generic:
+            body: 뭔가 환상적 했어!
+        section_header:
+            body: 섹션 이름
+        course:
+            instructor: 강좌 강사
+            locality: 지방성
+            date_range: 날짜 범위
+            title: 코스 이름
+        project:
+            date_range: 날짜 범위
+            title: 프로젝트 이름
+            locality: 지방성
+            organization: 회사 이름
+            role: 프로젝트 역할  
+    pt:
+        job:
+            locality: Aldeia
+            date_range: Intervalo de datas
+            organization: Nome de Empresa
+            title: Cargo
+        generic:
+            body: Eu fiz uma coisa fantástica!
+        section_header:
+            body: Nome da Seção
+        course:
+            instructor: Curso de Instrutor
+            locality: Aldeia
+            date_range: Intervalo de datas
+            title: Nome do curso
+        project:
+            date_range: Intervalo de datas
+            title: Nome do projeto
+            locality: Aldeia
+            organization: Nome de Empresa
+            role: Projeto Papel
+    de:
+        job:
+            locality: Lokalität
+            date_range: Termine waren dort
+            organization: Firmenname
+            title: Job-Titel
+        generic:
+            body: Ich habe etwas Phantastisches!
+        section_header:
+            body: Abschnitt Name
+        course:
+            instructor: Kursleitung
+            locality: Lokalität
+            date_range: Termine waren dort
+            title: Kurstitel
+        project:
+            date_range: Termine waren dort
+            title: Projektname
+            locality: Lokalität
+            organization: Firmenname
+            role: Projekt-Rolle
+    fr:
+        job:
+            locality: Localité
+            date_range: Temps employé
+            organization: Nom de l'entreprise
+            title: Titre de l'emploi
+        generic:
+            body: J'ai fait une chose fantastique!
+        section_header:
+            body: Nom de la section
+        course:
+            instructor: Professeur
+            locality: Localité
+            date_range: Temps consacré à l'apprentissage
+            title: Nom du cours
+        project:
+            date_range: Temps consacré au projet
+            title: Nom du projet
+            locality: Localité
+            organization: Nom de l'entreprise
+            role: Rôle du projet
+    zh:
+        job:
+            locality: 产地
+            date_range: 日期范围
+            organization: 公司名称
+            title: 职称
+        generic:
+            body: 我还做了精彩！
+        section_header:
+            body: 板块名称
+        course:
+            instructor: 课程导师
+            locality: 产地
+            date_range: 日期范围
+            title: 课程名称
+        project:
+            date_range: 日期范围
+            title: 项目名称
+            locality: 产地
+            organization: 公司名称
+            role: 项目中的作用
+    es:
+        job:
+            locality: Localidad
+            date_range: Intervalo de fechas
+            organization: Nombre de la empresa
+            title: Título del Empleo
+        generic:
+            body: Hice algo fantástico!
+        section_header:
+            body: Nombre de la sección
+        course:
+            instructor: Instructor del Curso
+            locality: Localidad
+            date_range: Intervalo de fechas
+            title: Nombre del Curso
+        project:
+            date_range: Intervalo de fechas
+            title: Nombre del proyecto
+            locality: Localidad
+            organization: Nombre de la empresa
+            role: Proyecto de Papel
+promo_description: Praux.com is giving away 2 free iPod Touch 8GB!  Simply sign up and create a Praux.com resume to enter for a chance to win!
+promo_short: Praux.com iPod Touch Giveaway
+promo_duration: January 18th 2010 - February 28 2010
+promo_rules_url: http://help.praux.com/projects/praux/wiki/iPodTouchGiveaway022810    
+        
+    

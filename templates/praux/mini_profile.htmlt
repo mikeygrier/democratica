@@ -1,0 +1,46 @@
+<% BLOCK mini_profile %>
+    <% IF user.resume %><a href="<% user.resume.title_url %>" title="<% user.resume.name %>'s Resume"><% END %>
+    <div class="mini-profile-container">
+        <div class="mini-profile-photo">
+            <img src="<% user.gravatar_url %>?s=45"/>
+        </div>
+        <% IF user.resume %>
+            <div class="mini-profile-name">
+                <% user.resume.name %>
+            </div>
+            <div class="mini-profile-title">
+                <% user.resume.recent_title %>
+            </div>
+            <div class="rating-container"><% INCLUDE rating %><div>
+        <% ELSE %>
+            <div class="mini-profile-name">
+                <% user.name %>
+            </div>
+        <% END %>
+    </div>
+    <% IF user.resume %></a><% END %>
+<% END %>
+
+<% BLOCK rating %>
+  <% IF user.resume.completeness %>
+     <% rating_percent = user.resume.completeness + 2 %>
+  <% ELSE %>
+     <% rating_percent = 0 %>
+  <% END %>
+  <% uuid = self.new_uuid %>
+  <% css_class = "rating-stars-" _ uuid %>
+  <style>
+    .<% css_class %> {
+        position: relative;
+        top: 0px;
+        display: block;
+        height: 17px;
+        width: <% rating_percent %>px;
+        background-image: url(/img/stars.png);
+        background-repeat: no-repeat;
+        background-position: 0px -19px;
+        z-index: 1;
+    }
+  </style>
+  <div class="empty-stars"><div class="<% css_class %>"></div></div>
+<% END %>

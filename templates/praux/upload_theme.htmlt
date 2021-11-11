@@ -1,0 +1,22 @@
+<% title = "Upload A New Theme" %>
+<% sub_title = "<span style='font-size: 16px;'>Upload a theme...</span>" %>
+<% no_menu = 1 %>
+<% INCLUDE praux/header.htmlt %>
+    <div style="padding: 5px">
+		<form name="upload_theme" enctype="multipart/form-data" method="post" action="<% romeo.romeo_location %>/upload_theme/">
+    	    <input type="hidden" name="is_submit" value="1"/>
+			<div class="form-element" style="padding-bottom: 25px">
+		        <label class="form-label">Theme Name</label>
+		        <input type="text" class="medium" name="theme_name"/>
+			</div>
+			<div class="form-element">
+		        <label class="form-label">Theme File</label>
+		        <input type="file" class="medium" name="theme_file"/>
+			</div>
+			<div class="form-element">
+		        <input style="height:20px" type="submit" value="Upload"/> or <a class="modal-close" href="<% IF self.is_dev %>http://prauxdev.com/<% ELSE %>http://praux.com/<% END %>">Cancel</a>
+			</div>
+			
+		</form>
+    </div>
+<% INCLUDE praux/footer.htmlt %>

@@ -1,0 +1,26 @@
+% layout 'idp';
+% title 'Login • MeritCommons Identity Provider';
+
+<script>
+    DISABLE_WEBSOCKETS = true;
+</script>
+
+<div id="content-wrapper" class="container">
+    <form class="form-signin" action="/oauth2/authorization_grant" method="post" >
+        <h1 class="page-header form-signin-heading">Log In</h1>
+        <% if ($self->stash('message')) { %> 
+        <div class="form-signin-message lead muted">
+            <%= $self->stash('message') %>
+        </div>
+        <% } %>
+        <input name="username" type="text" class="form-control" placeholder="Username" autofocus=""/>
+        <input name="password" type="password" class="form-control" placeholder="Password"/>
+        <input name="client_id" type="hidden" value="<%= $self->stash('client_id') %>"/>
+        <input name="response_type" type="hidden" value="<%= $self->stash('response_type') %>"/>
+        <input name="redirect_uri" type="hidden" value="<%= $self->stash('redirect_uri') %>"/>
+        <input name="state" type="hidden" value="<%= $self->stash('state') %>"/>
+        <input name="scope" type="hidden" value="<%= $self->stash('scope') %>"/>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>
+    </form>
+</div>
+<!-- /container -->

@@ -1,0 +1,28 @@
+<% title = "Resume Navigation - " _ self.romeo.instance %>
+<% sub_title = "<span style='font-size: 16px;'>Important links for " _ self.romeo.instance _ "</span>" %>
+<% no_menu = 1 %>
+<% INCLUDE praux/header.htmlt %>
+    <div style="padding: 5px">
+        <ul>
+            <li><a href="/edit/">Resume Edit URL</a> ( go here to edit and translate your resume ) </li>
+            <li><a href="/edit_resume/">Resume Configuration URL</a> ( go here to configure your resume's settings ) </li>
+            <li><a href="/resume.pdf">Resume Default View As PDF</a></li>
+            <li><a href="/resume.doc">Resume Default View As MS-Word Document</a></li>
+            <li><a href="/resume.txt">Resume Default View As Plain Text</a></li>
+            <li><a href="/resume.odt">Resume Default View As OpenOffice.org Document</a></li>
+            <li><a href="/resume.rtf">Resume Default View As Rich Text Document</a></li>
+            <li><a href="/all/resume.yml">Resume Global View As YAML Export ( save / backup your resume )</a></li>
+            <li><a href="/page/resume_graphs/">Resume Hits / Reporting</a></li>
+            <li><a href="/">Resume Default View</a></li>
+            
+            <% FOREACH lang = ri.languages %>
+                <li><a href="/default/<% lang %>/">Default View in <% self.lang_short_to_long(lang) %></a></li>
+                <% FOREACH view = ri.views %>
+                    <% UNLESS view == "default" %>
+                        <li><a href="/<% view %>/<% lang %>/">Custom View: <% view %> in <% self.lang_short_to_long(lang) %> (<% lang %>)</a></li>
+                    <% END %>
+                <% END %>
+            <% END %>
+        </ul>
+    </div>
+<% INCLUDE praux/footer.htmlt %>

@@ -1,0 +1,271 @@
+<% USE HTML::BBCode ('bbcode_limited' 
+    allowed_tags = ['b', 'i', 'u', 'url']
+) %>
+
+<% BLOCK dialog_boxes %>
+<!-- add the dialog box for nonsense -->
+<style>
+    textarea { margin-bottom:12px; height: 175px; width:95%; padding: .4em; }
+</style>
+
+<div id="value_dialog" title="Set Content Value" style="display:none">
+    <p id="value_dialog_tip"></p>
+    <form id="value_form" class="dialog_form">
+    <fieldset>
+        <label for="name" style="font-weight: bold;font-size: 18px" id="value_label">Value</label>
+        <textarea name="itemvalue" id="itemvalue" class="text ui-widget-content ui-corner-all" onFocus="this.select()"></textarea>
+		<input type="hidden" name="itemid" value="" id="itemid"/>
+    </fieldset>
+    </form>
+</div>
+
+<div id="suggestion_dialog" title="Create New Section" style="display:none">
+    <p id="suggestion_tip">Suggestions for this content...</p>
+    <form id="suggestion_form" class="dialog_form">
+    <fieldset>
+        <label for="suggestion_preview" style="font-weight: bold;font-size: 18px">Change Preview</label>
+        <div id="suggestion_preview" class="ui-widget-content ui-corner-all" style="font-size: 12px; height: 75px; width: 98%; overflow: auto"></div>
+        
+        <!-- i want this inline -->
+        <div style="padding-top: 10px">
+            <span style="font-weight: bold;font-size: 18px">Suggestion By</span>
+            <select name="suggestion" id="suggestion_select" class="select ui-widget-content ui-corner-all" style="width:97%; font-size: 12px;"></select>
+        </div>
+        
+        <div style="padding-top: 10px;">
+            <label for="name" style="font-weight: bold;font-size: 18px" id="value_label">Value</label>
+            <textarea name="suggestion_final_value" style="height:115px; font-size: 12px" id="suggestion_final_value" class="text ui-widget-content ui-corner-all"></textarea>
+        </div>
+    </fieldset>
+    </form>
+</div>
+
+<div id="confirm_dialog" title="Remove Resume Content" style="display:none;">
+    <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span><span id="confirmage"></span></p>
+    <form class="dialog_form">
+	    <input type="hidden" name="itemid" value="" id="confirmitemid"/>
+    </form>
+</div>
+ 
+<div id="translate_dialog" title="Translate Your Resume" style="display:none;">
+    <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span><span id="translate_summary"></span></p>
+</div>
+
+<div id="section_dialog" title="Create New Section" style="display:none">
+    <p id="section_tip">Choose a name for the section, and pick what kind of data will show up in it.</p>
+    <form id="section_form" class="dialog_form">
+    <fieldset>
+        <label for="body" style="font-weight: bold;font-size: 18px">Header</label>
+        <input type="text" id="section_body" name="body" class="text ui-widget-content ui-corner-all"/><br/><br/>
+		<label for="format" style="font-weight: bold;font-size: 18px">Format</label>
+		<select name="format" id="section_format" class="select ui-widget-content ui-corner-all">
+			<option value="generic">Generic Section (with bullets)</option>
+			<option value="generic_nobullets">Generic Section (no bullets)</option>
+			<option value="job" selected>Job and Volunteer Experience</option>
+			<option value="course">Course or Training Information</option>
+			<option value="project">Project Descriptions</option>
+		</select>
+    </fieldset>
+    </form>
+</div>
+
+<div id="views_dialog" title="Set Item Views" style="display:none">
+	<p id="views_tip">Views allow you to tag portions of your resume into sub-resumes.  Content tagged with the same tag will 
+	    show up in the corresponding tag in your resume url.  e.g. a tag "plant_care" would translate to 
+	    http://your.resume.praux.com/plant_care/</p>
+	<input type="hidden" value="" id="viewsitemid"/>
+	<div id="views_container" style="width: 100%;text-align:center">
+		<img id="views_busy" style="padding-top: 80px" src="/img/busy.gif"/>
+	</div>
+</div>
+<% END %>
+<% BLOCK context_menu %>
+<!-- add the context menu for nonsense -->
+<ul id="editableMenu" class="contextMenu">
+    <li class="edit">
+        <a href="#edit">Edit</a>
+    </li>
+    <li class="add">
+        <a href="#add">Add</a>
+    </li>
+    <li class="views">
+        <a href="#views">Views</a>
+    </li>
+	<li class="suggestions">
+		<a href="#suggestions">Suggestions</a>
+	</li>
+    <li class="delete separator">
+        <a href="#delete">Delete</a>
+    </li>
+</ul>
+
+<ul id="commentMenu" class="contextMenu">
+    <li class="score-up">
+        <a href="#score-up">Good Job</a>
+    </li>
+    <li class="score-down">
+        <a href="#score-down">Bad Job</a>
+    </li>
+    <li class="suggestions separator">
+        <a href="#suggest">Suggest</a>
+    </li>
+    <li class="edit">
+        <a href="#comment">Comment</a>
+    </li>
+</ul>
+
+<ul id="viewMenu" class="contextMenu">
+    <li class="lift">
+        <a href="#lift">Lift</a>
+    </li>
+</ul>
+<% END %>
+
+<% BLOCK section %>
+    <% IF self.has_view(section) %>
+        <% set_container = 0 %>
+        <% container = 'ul' %>
+        <div id="<% section.id %>-<% section.format %>" class="section">
+            <% sec_cb = section.header_cb %>
+            <h2 class="editable<% UNLESS sec_cb.visible_item(self.lang).body %> empty<% END %>" id="<% sec_cb.id %>-body"><% sec_cb.visible_item(self.lang).body OR self.empty_labels.section_header.body %></h2>
+            <% FOREACH cb = sec_cb.sorted_children %>
+                <!-- format: <% cb.format %> -->
+                <% IF cb.format == "generic" %>
+                    <% IF set_container %>
+                        <% INCLUDE generic %>
+                    <% ELSE %>
+                        <ul id="<% sec_cb.id %>-children" class="bullets grouping">
+                        <% INCLUDE generic %>
+                        <% set_container = 1 %>
+                        <% container = 'ul' %>
+                    <% END %>
+                <% ELSIF cb.format == "generic_nobullets" %>
+                    <% IF set_container %>
+                        <% INCLUDE generic_nobullets %>
+                    <% ELSE %>
+                        <ul style="list-style-type: none; width: 100%; text-align: justify" id="<% sec_cb.id %>-children" class="grouping">
+                        <% INCLUDE generic_nobullets %>
+                        <% set_container = 1 %>
+                        <% container = 'ul' %>
+                    <% END %>
+                <% ELSE %>
+                    <% UNLESS set_container %>
+                        <div id="<% sec_cb.id %>-children" class="grouping <% cb.format %>">
+                        <% set_container = 1 %>
+                        <% container = "div" %>
+                    <% END %>
+                    <% IF cb.format == "job" %>
+                        <% INCLUDE job %>
+                    <% ELSIF cb.format == "project" %>
+                        <% INCLUDE project %>
+                    <% ELSIF cb.format == "course" %>
+                        <% INCLUDE course %>
+                    <% END %>
+                <% END %>
+            <% END %>
+            <% IF set_container %>
+                </<% container %>>
+            <% END %>
+        </div>
+    <% END %>
+<% END %>
+<% BLOCK generic %>
+    <% IF spanonly == 1 %>
+        <% vi = cb.visible_item(self.lang) %>
+        <span class="editable<% UNLESS vi.body %> empty<% END %>" id="<% cb.id %>-body" origvalue="<% vi.body OR self.empty_labels.generic.body %>"><% FILTER bbcode_limited %><% vi.body OR self.empty_labels.generic.body %><% END %></span>
+    <% ELSE %>
+        <% IF self.has_view(cb) %>
+            <% vi = cb.visible_item(self.lang) %>
+            <li>
+                <span class="editable<% UNLESS vi.body %> empty<% END %>" id="<% cb.id %>-body" origvalue="<% vi.body OR self.empty_labels.generic.body %>"><% FILTER bbcode_limited %><% vi.body OR self.empty_labels.generic.body %><% END %></span>
+                <% IF cb.sorted_children.defined %>
+                    <ul id="<% cb.id %>-children" class="grouping">
+                    <% FOREACH cb = cb.sorted_children %>
+                        <% INCLUDE generic %>
+                    <% END %>
+                    </ul>
+                <% END %>
+            </li>
+        <% END %>
+    <% END %>
+<% END %>
+<% BLOCK generic_nobullets %>
+    <% IF spanonly == 1 %>
+        <% vi = cb.visible_item(self.lang) %>
+        <span class="editable<% UNLESS vi.body %> empty<% END %>" id="<% cb.id %>-body" origvalue="<% vi.body OR self.empty_labels.generic.body %>"><% FILTER bbcode_limited %><% vi.body OR self.empty_labels.generic.body %><% END %></span>
+    <% ELSE %>
+        <% IF self.has_view(cb) %>
+            <% vi = cb.visible_item(self.lang) %>
+            <li style="list-style-type: none">
+                <span class="editable<% UNLESS vi.body %> empty<% END %>" id="<% cb.id %>-body" origvalue="<% vi.body OR self.empty_labels.generic.body %>"><% FILTER bbcode_limited %><% vi.body OR self.empty_labels.generic.body %><% END %></span>
+                <% IF cb.sorted_children.defined %>
+                    <ul style="list-style-type: none; width: 100%; text-align: justify" id="<% cb.id %>-children" class="grouping">
+                    <% FOREACH cb = cb.sorted_children %>
+                        <% INCLUDE generic_nobullets %>
+                    <% END %>
+                    </ul>
+                <% END %>
+            </li>
+        <% END %>
+    <% END %>
+<% END %>
+<% BLOCK job %>
+    <% IF self.has_view(cb) %>
+        <% vi = cb.visible_item(self.lang) %>
+        <div id="<% cb.id %>-<% cb.format %>" class="container">
+            <p class="date_range editable<% UNLESS vi.date_range %> empty<% END %>" id="<% cb.id %>-date_range"><% vi.date_range OR self.empty_labels.job.date_range %></p>
+            <div class="job_data">
+                <h3 class="organization editable<% UNLESS vi.organization %> empty<% END %>" id="<% cb.id %>-organization"><% vi.organization OR self.empty_labels.job.organization %></h3>
+                <p class="locality editable<% UNLESS vi.locality %> empty<% END %>" id="<% cb.id %>-locality"><% vi.locality OR self.empty_labels.job.locality %></p>
+                <p class="title editable<% UNLESS vi.title %> empty<% END %>" id="<% cb.id %>-title"><% vi.title OR self.empty_labels.job.title %></p>
+                <% IF cb.sorted_children.defined %>
+                    <ul id="<% cb.id %>-children" class="grouping">
+                    <% FOREACH cb = cb.sorted_children %>
+                        <% INCLUDE generic %>
+                    <% END %>
+                    </ul>
+                <% END %>
+            </div>
+        </div>
+    <% END %>
+<% END %>
+<% BLOCK course %>
+    <% IF self.has_view(cb) %>
+        <% vi = cb.visible_item(self.lang) %>
+        <div id="<% cb.id %>-<% cb.format %>" class="container">
+            <p class="date_range editable<% UNLESS vi.date_range %> empty<% END %>" id="<% cb.id %>-date_range"><% vi.date_range OR self.empty_labels.course.date_range %></p>
+            <div class="job_data">
+                <h3 class="course editable<% UNLESS vi.title %> empty<% END %>" id="<% cb.id %>-title"><% vi.title OR self.empty_labels.course.title %></h3>
+                <p class="locality editable<% UNLESS vi.locality %> empty<% END %>" id="<% cb.id %>-locality"><% vi.locality OR self.empty_labels.course.locality %></p>
+                <p class="instructor editable<% UNLESS vi.instructor %> empty<% END %>" id="<% cb.id %>-instructor"><% vi.instructor OR self.empty_labels.course.instructor %></p>
+                <% IF cb.sorted_children.defined %>
+                    <ul id="<% cb.id %>-children" class="grouping">
+                    <% FOREACH cb = cb.sorted_children %>
+                        <% INCLUDE generic %>
+                    <% END %>
+                    </ul>
+                <% END %>
+            </div>
+        </div>
+    <% END %>
+<% END %>
+<% BLOCK project %>
+    <% IF self.has_view(cb) %>
+        <% vi = cb.visible_item(self.lang) %>
+        <div id="<% cb.id %>-<% cb.format %>" class="container">
+            <p class="date_range editable<% UNLESS vi.date_range %> empty<% END %>" id="<% cb.id %>-date_range"><% vi.date_range OR self.empty_labels.project.date_range %></p>
+            <div class="job_data">
+                <h3 class="project editable<% UNLESS vi.title %> empty<% END %>" id="<% cb.id %>-title"><% vi.title OR self.empty_labels.project.title %></h3>
+                <p class="locality editable<% UNLESS vi.locality %> empty<% END %>" id="<% cb.id %>-locality"><% vi.locality OR self.empty_labels.project.locality %></p>
+                <p class="orgrole"><span class="organization editable<% UNLESS vi.organization %> empty<% END %>" id="<% cb.id %>-organization"><% vi.organization OR self.empty_labels.project.organization %></span> - <span class="role editable<% UNLESS vi.role %> empty<% END %>" id="<% cb.id %>-role"><% vi.role OR self.empty_labels.project.role %></span></p>
+                <% IF cb.sorted_children.defined %>
+                    <ul id="<% cb.id %>-children" class="grouping">
+                    <% FOREACH cb = cb.sorted_children %>
+                        <% INCLUDE generic %>
+                    <% END %>
+                    </ul>
+                <% END %>
+            </div>
+        </div>
+    <% END %>
+<% END %>

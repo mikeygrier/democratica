@@ -1,0 +1,57 @@
+<% user = self.user_by_verify_token(fe.param('arg1')) %>
+<% password = fe.param('password') %>
+
+<% title = "Registration Confirmation" %>
+<% IF (user AND password AND user.authenticate(password)) %>
+    <% sub_title = "<span style='font-size: 16px;'>You've gone Praux!  Let's go build you a future.</span>" %>
+<% ELSE %>
+    <% sub_title = "<span style='font-size: 16px;'>Almost there, just confirm your password below...</span>" %>
+<% END %>
+
+<% INCLUDE praux/header.htmlt %>
+<% IF user %>
+    <% IF password %>
+        <div style="padding: 5px">
+        <% IF user.authenticate(password) %>
+            <% CALL user.verify_token('VERIFIED') %>
+			<% CALL user.verified(1) %>
+            <% CALL user.update() %>
+			<script language="javascript">
+				setTimeout(function() {
+					document.location = "http://<% IF self.is_dev %>prauxdev.com<% ELSE %>praux.com<% END %>";
+				}, 5000);
+			</script>
+            <h3>Registration Confirmed!</h3>
+            <p><a href="http://<% IF self.is_dev %>prauxdev.com<% ELSE %>praux.com<% END %>/">Click Here</a> to return to the main page, or you'll be directed in 5 seconds!</p>
+        <% ELSE %>
+            <p class="error">Invalid password!</p>
+            <% INCLUDE password_form %>
+        <% END %>
+        </div>
+    <% ELSE %>
+        <% INCLUDE password_form %>
+    <% END %>
+<% ELSE %>
+    <% INCLUDE go_away %>
+<% END %>       
+<% INCLUDE praux/footer.htmlt %>
+
+<% BLOCK go_away %>
+    <div style="padding: 5px">
+    <p>Pls go away.  I fear u are a hax0r.</p>
+    </div>
+<% END %>
+
+<% BLOCK password_form %>
+<div style="padding: 5px">
+<form name="confirm_password" method="post">
+    <div class="form-element">
+        <label class="form-label">Confirm Password</label>
+        <input type="password" class="medium" name="password"/>
+    </div>
+    <div class="form-element">
+        <input style="height: 28px" type="submit" value="Confirm Your Account"/>
+    </div>
+</form>
+</div>
+<% END %>

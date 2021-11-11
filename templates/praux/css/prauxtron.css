@@ -1,0 +1,269 @@
+@media print {
+    #similar-resumes {
+        display: none;
+    }
+}
+
+body {
+    margin: 10px;
+    font-family: verdana, geneva, sans-serif;
+}
+
+.even {
+    background-color: #eee;
+    border: 0px;
+}
+.odd {
+    background-color: #fff;
+    border: 0px;
+}
+.helper_box {
+    top: 18px;
+    position: relative;
+    padding: 2px;
+    margin: 3px 3px;
+}
+#add_section {
+    cursor: pointer;
+}
+#helper_copy {
+    font-size: 12px;
+    text-align: justify;
+    border: 1px black solid;
+}
+
+#similar-resumes {
+    font-family: helvetica, arial, sans-serif;
+    text-align: center; 
+    width: 180px; 
+    position: fixed; 
+    right: 20px; 
+    background-color: #000; 
+    color: #fff; 
+    top: 175px; 
+    border: 3px #666 solid;
+}
+
+a:hover {
+    color: #666;
+}
+
+#notice_word, #error_word {
+    color: #222;
+}
+
+#notice_body, #error_body {
+    color: #333;
+}
+
+#nav_box li {
+    list-style-type: none;
+    font-size: 13px;
+}
+
+.section p, .section td, .section span, .section li, .section a { 
+    list-style-type: disc;
+}
+
+h1 {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0 0 5px 0;
+}
+
+h2 {
+    border-bottom: 1px solid #666;
+    clear: both;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 15px 0 10px 0;
+    padding: 0 0 3px 0;
+    width: 700px;
+}
+
+h3 {
+    float: left;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0 0 5px 0;
+    padding: 0;
+    width: 446px;
+}
+
+li {
+    font-size: 12px;
+    min-height: 12px;
+    padding: 0;
+}
+
+.section li {
+    margin: 0 0 3px 20px;
+    vertical-align: middle;
+}
+
+p {
+    font-size: 12px;
+    margin: 0 0 10px 0;
+    padding: 0;
+    width: 575px;
+}
+
+.resume-footer {
+    border-top: black 1px solid;
+    font-size: 10px;
+}
+
+.section ul {
+    margin: 3px 0 0 0;
+    padding: 0;
+    width: 550px;
+    list-style-type: disc;
+}
+
+.section ul ul {
+    margin: 3px 0 0 0;
+    padding: 0;
+    list-style-type: disc;
+}
+
+.section div ul {
+    margin: 3px 0 0 0;
+    padding: 0;
+    list-style-type: disc;
+}
+.email {
+    font-size: 14px;
+    float: left;
+    min-height: 38px;
+    width: 350px;
+}
+
+.address {
+    font-size: 14px;
+    float: left;
+    text-align: right;
+    min-height: 38px;
+    width: 350px;
+}
+
+.section ul.generic_nobullets {
+    margin-left: 125px;
+}
+
+.section ul.bullets {
+    margin-left: 125px;
+}
+
+.company {
+    clear: both;
+    margin: 0 0 5px 0;
+    padding: 0;
+}
+.data {
+    padding-left: 125px;
+}
+.date, .date_range {
+    clear: left;
+    float: left;
+    padding-top: 2px;
+    width: 125px;
+}
+.job, .container {
+    clear: both;
+    min-height: 25px;
+    width: 700px;
+}
+
+.section {
+    width: 700px;
+}
+
+.job_data {
+    float: left;
+    width: 575px;
+}
+.location {
+    clear: right;
+    float: left;
+    text-align: right;
+    width: 125px;
+}
+.position {
+    font-style: italic;
+    margin: 0 0 5px 0;
+}
+#references {
+    margin-top: 20px;
+}
+#meta {
+    margin-top: 30px;
+}
+#emblem {
+    height: 50px; 
+    width: 50px;
+}
+#suggestion_preview ins {
+    background-color: #ecfef1;
+}
+#suggestion_preview del {
+    background-color: #fef1ec;
+}
+
+#tooltip {
+	position: absolute;
+	z-index: 3000;
+	border: 1px solid #111;
+	background-color: #ccc;
+	padding: 5px;
+	max-width: 400px;
+	opacity: 0.95;
+}
+#tooltip h3, #tooltip div { margin: 0; }
+
+.jbar{
+	height:50px;
+	width:100%;
+	background-color: #fff;
+	position:fixed;
+	filter:progid:DXImageTransform.Microsoft.Alpha(opacity=95); 
+	opacity: 0.95;
+	-moz-opacity: 0.95;
+	text-align:center;
+	left:0px;
+	z-index:9999999;
+	margin:0px;
+	padding:0px;
+}
+.jbar-top{
+	top:0px;
+	border-top:2px solid #fff;
+	border-bottom: 1px solid #ebebeb;
+}
+.jbar-bottom{
+	bottom:0px;
+	border-bottom:2px solid #fff;
+	border-top: 1px solid #ebebeb;
+	color:#777;
+}
+.jbar-content{
+	line-height:46px;
+	font-size: 18px;
+	font-family:'Lucida Grande',sans-serif;
+}
+a.jbar-cross{
+	position:absolute;
+	width:31px;
+	height:31px;
+	background:transparent url(/img/cross.png) no-repeat top left;	
+	cursor:pointer;
+	right:10px;
+}
+a.jbar-cross:hover{
+	background-image: url(/img/cross_hover.png)
+}
+.jbar-top a.jbar-cross{
+	top:8px;	
+}
+.jbar-bottom a.jbar-cross{
+	bottom:8px;
+}

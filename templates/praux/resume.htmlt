@@ -1,0 +1,22 @@
+<% IF ri.owner.preference('com.praux.anonymize_resume') %>
+    <% title = "An Excellent Candidate's Resume" %> 
+<% ELSE %>
+    <% title = resume.name _ "'s Resume" %>
+<% END %>
+
+<% IF self.resume_words %> 
+    <% title = title _ " - " _ self.resume_words %>
+<% END %>
+
+<% PROCESS praux/prauxtron_blocks.htmlt %>
+<% INCLUDE praux/prauxtron_header.htmlt %>
+
+<div class="wrapper">
+<div id="sections">
+<% FOREACH section = resume.sorted_sections %>
+	<% INCLUDE section %>
+<% END %>
+</div>
+
+<% INCLUDE praux/prauxtron_footer.htmlt %>
+</div>

@@ -1,0 +1,111 @@
+<% title = "Update Resume Information" %>
+<% sub_title = "<span style='font-size: 16px;'>Updating " _ self.romeo.instance _ "</span>" %>
+<% no_menu = 1 %>
+<% INCLUDE praux/header.htmlt %>
+    <div style="padding: 5px">
+        <label class="form-label">Publishing</label><a href="http://help.praux.com/projects/praux/wiki/Publishing" style="font-size: 11px" title="What is Publishing?">What is Publishing?</a>
+        <table>
+            <tr>
+                <th>Action</th>
+                <th>State</th>
+                <th>Toggle</th>
+            </tr>
+            <tr>
+                <td>Publish <% self.resume.instance %><% self.c.COOKIE_DOMAIN %>:</td>
+                <td><% IF self.active_user.preference('com.praux.publish_resume') %>Resume Is Published<% ELSE %>Resume Is Not Published<% END %></td>
+                <td>
+                    <% IF self.active_user.preference('com.praux.publish_resume') %>
+                        <a href="/usersetpref?k=com.praux.publish_resume&v=0&back=/toggleables/">Make Private</a>
+                    <% ELSE %>
+                        <a href="/usersetpref?k=com.praux.publish_resume&v=1&back=/toggleables/">Publish</a>
+                    <% END %>
+        	    </td>
+        	</tr>
+            <tr>
+                <td>Anonymize Resume Contact Information:</td>
+                <td><% IF self.active_user.preference('com.praux.anonymize_resume') %>Resume Is Anonymized<% ELSE %>Resume Is Not Anonymized<% END %></td>
+                <td>
+                    <% IF self.active_user.preference('com.praux.anonymize_resume') %>
+                        <a href="/usersetpref?k=com.praux.anonymize_resume&v=0&back=/toggleables/">Name (Disable Anonymize)</a>
+                    <% ELSE %>
+                        <a href="/usersetpref?k=com.praux.anonymize_resume&v=1&back=/toggleables/">Anonymize</a>
+                    <% END %>
+                </td>
+            </tr>
+        </table>
+        <br/>
+        <label class="form-label">Look &amp; Feel</label>
+        <table>
+            <tr>
+                <th>Action</th>
+                <th>State</th>
+                <th>Toggle</th>
+            </tr>
+            <tr>
+                <td>Praux.com Badge/Emblem:</td>
+                <td><% IF self.active_user.preference('com.praux.noemblem') %>Hidden<% ELSE %>Shown<% END %></td>
+                <td>
+                    <% IF self.active_user.preference('com.praux.noemblem') %>
+                        <a href="/usersetpref?k=com.praux.noemblem&v=0&back=/toggleables/">Show</a>
+                    <% ELSE %>
+                        <a href="/usersetpref?k=com.praux.noemblem&v=1&back=/toggleables/">Hide</a>
+                    <% END %>
+        	    </td>
+        	</tr>
+            <tr>
+                <td>Similar Resumes:</td>
+                <td><% IF self.active_user.preference('com.praux.hidesimilar') %>Hidden<% ELSE %>Shown<% END %></td>
+                <td>
+                    <% IF self.active_user.preference('com.praux.hidesimilar') %>
+                        <a href="/usersetpref?k=com.praux.hidesimilar&v=0&back=/toggleables/">Show</a>
+                    <% ELSE %>
+                        <a href="/usersetpref?k=com.praux.hidesimilar&v=1&back=/toggleables/">Hide</a>
+                    <% END %>
+                </td>
+            </tr>
+            <tr>
+                <td>Social Tags In Footer (including "Like" button):</td>
+                <td><% IF self.active_user.preference('com.praux.hidesocial') %>Hidden<% ELSE %>Shown<% END %></td>
+                <td>
+                    <% IF self.active_user.preference('com.praux.hidesocial') %>
+                        <a href="/usersetpref?k=com.praux.hidesocial&v=0&back=/toggleables/">Show</a>
+                    <% ELSE %>
+                        <a href="/usersetpref?k=com.praux.hidesocial&v=1&back=/toggleables/">Hide</a>
+                    <% END %>
+                </td>
+            </tr>
+        </table>
+        <br/>
+        <label class="form-label">Mail Masking</label><a href="http://help.praux.com/projects/praux/wiki/MailMasking" style="font-size: 11px" title="What is mail masking?">What is Mail Masking?</a>
+        <table>
+            <tr>
+                <th>Action</th>
+                <th>State</th>
+                <th>Toggle</th>
+            </tr>
+            <tr>
+                <td>My Real Email Address <% self.resume.email %>:</td>
+                <td><% IF self.active_user.preference('com.praux.showmailmask') == 1 %>Is Masked<% ELSE %>Is Published<% END %></td>
+                <td>
+                    <% IF self.active_user.preference('com.praux.showmailmask') == 1 %>
+                        <a href="/mm?show_mask=0&back=/toggleables/" title="Disable Email Masking">Publish It</a>
+                    <% ELSE %>
+                        <a href="/mm?show_mask=1&back=/toggleables/" title="Enable Email Masking">Mask It</a>
+                    <% END %>
+                </td>
+            </tr>
+            <tr>
+                <td><% self.resume.instance %>@praux.com Email:</td>
+                <td><% IF mailmask_enabled == 1 %>Flows Through To <% self.resume.email %><% ELSE %>Goes Into A Deep, Deep Black Hole<% END %></td>
+                <td>
+                    <% IF mailmask_enabled == 1 %>
+                        <a href="/mm?enable_flow=0&back=/toggleables/" title="Throw The Email Out!">Disable Email Flow</a>
+                    <% ELSE %>
+                        <a href="/mm?enable_flow=1&back=/toggleables/" title="Go ahead and send the emails to me...">Enable Email Flow</a>
+                    <% END %>
+                </td>
+            </tr>
+        </table>
+        <br/>
+    </div>
+<% INCLUDE praux/footer.htmlt %>

@@ -1,0 +1,238 @@
+% use Time::Piece;
+% layout 'default';
+% title 'OAuth2';
+
+<div id="content-wrapper" class="container">
+    <div class="col-md-12 well">
+        <h2>OAuth2</h2>
+        <p>Create, modify, and delete clients and scopes here. Learn more about OAuth2 <a href="http://oauth.net/2/" target="_blank">here</a>.</p>
+        <hr />
+        <h4>Clients</h4>
+        <div style="display: none;" class="alert alert-danger delete-success"></div>
+        <table id="oauth2-clients" class="table">
+            <thead>
+                <tr>
+                    <th>Common Name</th>
+                    <th>Thumbprint</th>
+                    <th>Unique ID</th>
+                    <th>Modify Time</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                % foreach my $client (@$clients) {
+                    % my $modify_time = localtime($client->modify_time)->strftime('%F %T');
+                    <tr id="<%= $client->unique_id %>">
+                        <td class="table-common-name"><%= $client->common_name %></td>
+                        <td class="table-thumbprint"><%= $client->thumbprint %></td>
+                        <td class="table-unique-id"><%= $client->unique_id %></td>
+                        <td class="table-modify-time"><%= $modify_time %></td>
+                        <td><a class="btn btn-warning modify-client">Modify</a></td></td>
+                    </tr>
+                % }
+            </tbody>
+        </table>
+        <p <%== scalar(@$clients) ? 'style="display:none;" ' : '' %>class="no-clients">You do not have any clients. Click <a class="add-client" href="#">here</a> to create one.</p>
+        <button class="btn btn-success add-client" href="#">Add Client</button>
+        <hr />
+        <h4>Scopes</h4>
+        <div style="display: none;" class="alert alert-danger scope-delete-success"></div>
+        <div style="display: none;" class="alert alert-success scope-create-success"></div>
+        <table id="oauth2-scopes" class="table">
+            <thead>
+                <tr>
+                    <th>Common Name</th>
+                    <th>Description</th>
+                    <th>Modify Time</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                % foreach my $scope (@$scopes) {
+                    % my $modify_time = localtime($scope->modify_time)->strftime('%F %T');
+                    <tr id="<%= $scope->unique_id %>">
+                        <td class="table-common-name"><%= $scope->common_name %></td>
+                        <td class="table-description"><%= $scope->description %></td>
+                        <td class="table-modify-time"><%= $modify_time %></td>
+                        <td><a class="btn btn-warning modify-scope">Modify</a></td></td>
+                    </tr>
+                % }
+            </tbody>
+        </table>
+        <p <%== scalar(@$scopes) ? 'style="display:none;" ' : '' %>class="no-scopes">You do not have any scopes. Click <a class="add-scope" href="#">here</a> to create one.</p>
+        <button class="btn btn-success add-scope" href="#">Add Scope</button>
+    </div>
+    <!-- Client Creation Modal -->
+    <div class="modal fade" id="addClient" tabindex="-1" role="dialog" aria-labelledby="addClientModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="addClientModal">Create Client</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="create-client">
+                        <p>Please fill in all of the fields below.</p>
+                        <div style="display: none;" class="alert alert-danger create-error"></div>
+                        <form>
+                            <div class="form-group">
+                                <label for="common-name">Common Name*</label>
+                                <input type="text" class="form-control" id="common-name" placeholder="My Amazing App">
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    <input type="checkbox" id="meritcommons-certificate" value="yes" checked> Use MeritCommons's Certificate
+                                </label>
+                            </div>
+                            <div class="form-group" style="display: none;">
+                                <label for="certificate">Certificate*</label>
+                                <textarea type="text" class="form-control" id="certificate" placeholder=""></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="description">Description*</label>
+                                <textarea class="form-control" id="description" placeholder="This application is so great!"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="callback-url">Callback URL*</label>
+                                <input type="text" class="form-control" id="callback-url" placeholder="<%= $self->app->config->{front_door_url} %>/oauth2/callback">
+                            </div>
+                        </form>
+                    </div>
+                    <div style="display: none; text-align: center;" class="creating-client">
+                        <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>
+                        <p>Creating client...</p>
+                    </div>
+                    <div style="display: none;" class="client-secret-placeholder">
+                        <p>Below is your secret. It has been generated and printed for you here. It is <strong>IRRETRIEVABLE</strong> by the MeritCommons system admins. Store it somewhere safe, and do not lose it.</p>
+                        <p><strong>Secret:</strong></p>
+                        <div style="text-align: center;" class="alert alert-danger client-secret"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success" id="create-client">Create</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Client Modification Modal -->
+    <div class="modal fade" id="modifyClient" tabindex="-1" role="dialog" aria-labelledby="modifyClientModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="modifyClientModal">Modify Client</h4>
+                </div>
+                <div class="modal-body">
+                    <p>You can modify your client below.</p>
+                    <div style="display: none;" class="alert alert-danger modify-error"></div>
+                    <div style="display: none;" class="alert alert-success modify-success">Client successfully updated.</div>
+                    <form>
+                        <div class="form-group">
+                            <label for="common-name">Common Name</label>
+                            <input type="text" class="form-control" id="modify-common-name">
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <textarea type="password" class="form-control" id="modify-description"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="callback-url">Callback URL*</label>
+                            <input type="text" class="form-control" id="modify-callback-url">
+                        </div>
+                        <input type="hidden" id="modify-unique-id">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger pull-left" id="remove-client">Delete Client</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success" id="save-client">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Scope Creation Modal -->
+    <div class="modal fade" id="addScope" tabindex="-1" role="dialog" aria-labelledby="addScopeModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="addScopeModal">Create Scope</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="create-scope">
+                        <p>Please fill in all of the fields below.</p>
+                        <div style="display: none;" class="alert alert-danger scope-create-error"></div>
+                        <form>
+                            <div class="form-group">
+                                <label for="common-name">Common Name*</label>
+                                <input type="text" class="form-control" id="scope-common-name" placeholder="My Amazing Scope">
+                            </div>
+                            <div class="form-group">
+                                <label for="description">Description*</label>
+                                <textarea class="form-control" id="scope-description" placeholder="This scope is so great!"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success" id="create-scope">Create</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Scope Modification Modal -->
+    <div class="modal fade" id="modifyScope" tabindex="-1" role="dialog" aria-labelledby="modifyScopeModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="modifyScopeModal">Modify Scope</h4>
+                </div>
+                <div class="modal-body">
+                    <p>You can modify your scope below.</p>
+                    <div style="display: none;" class="alert alert-danger scope-modify-error"></div>
+                    <div style="display: none;" class="alert alert-success scope-modify-success">Scope successfully updated.</div>
+                    <form>
+                        <div class="form-group">
+                            <label for="common-name">Common Name</label>
+                            <input type="text" class="form-control" id="scope-modify-common-name">
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <textarea type="password" class="form-control" id="scope-modify-description"></textarea>
+                        </div>
+                        <input type="hidden" id="scope-modify-unique-id">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger pull-left" id="remove-scope">Delete Scope</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success" id="save-scope">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    if (typeof window.afterMain === 'undefined') {
+        window.afterMain = [];
+    }
+
+    window.afterMain.push(function() {
+        define('oauth2', [
+            '<%= $self->asset_url("js/oauth2.js") %>',
+        ], function(oauth2) {
+            return oauth2;
+        });
+
+        require([
+            'oauth2'
+        ], function(whateverThisIs) {
+            whateverThisIs = new whateverThisIs();
+            return whateverThisIs;
+        });
+    });
+</script>

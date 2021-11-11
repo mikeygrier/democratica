@@ -1,0 +1,174 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" xmlns:fb="http://www.facebook.com/2008/fbml">
+
+<head>
+    <% IF meta_description %>
+    <meta name="description" content="<% meta_description %>"/>
+    <% ELSE %>
+    <meta name="description" content="Praux.com is an online resume building community, editor and host."/>
+    <% END %>
+    <% IF meta_title %>
+    <meta name="title" content="<% meta_title %>"/>
+    <% END %>
+    
+    <% IF noindex %>
+    <meta name="robots" content="noindex"/>
+    <% END %>
+    
+    <meta name="keywords" content="resume editor community social network"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+    <% root_url = self.root_url %>
+
+    <title>Praux - <% title %></title>
+    
+    <!-- styles !! -->
+    <link rel="stylesheet" href="<% root_url %>/css/smoothness/jquery-ui-1.7.2.custom.css" type="text/css" media="all" title="no title" charset="utf-8" />
+	<link rel="stylesheet" href="<% root_url %>/css/style.css" type="text/css" media="all" title="no title" charset="utf-8" />
+	<link rel="shortcut icon" href="<% romeo.romeo_location %>/favicon.ico" />
+
+	<!-- scripts ;) -->
+    <script language="javascript" type="text/javascript" src="<% root_url %>/js/bundle.js?version=<% self.version %>"></script>
+    <script language="javascript" type="text/javascript" src="<% root_url %>/js/praux.js?version=<% self.version %>"></script>
+   
+    <% IF graphing %>
+        <!-- we're going to be doing graphing apparently! -->
+        <script language="javascript" type="text/javascript" src="<% root_url %>/js/jquery.flot.min.js?version=<% self.version %>"></script>
+        <!--[if IE]>
+            <script language="javascript" src="<% romeo.romeo_location %>/js/excanvas.min.js"></script>
+            <![endif]-->
+    <% END %>
+    
+    <!-- google analytics! -->
+    <script type="text/javascript">
+        var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+        document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+        </script>
+        <script type="text/javascript">
+        try {
+        var pageTracker = _gat._getTracker("UA-11451142-1");
+        pageTracker._setDomainName(".praux.com");
+        pageTracker._trackPageview();
+        } catch(err) {}
+    </script>
+    
+    <% IF self.instance != "ssl" %>
+        <script type="text/javascript"></script>
+    <% END %>
+</head>
+
+<body class="site-body">
+	<div class="site-header">
+      <div id="header-inner">
+            <div id="session-info">
+                <% IF self.active_user %>
+                <div id="logged-in-top">
+                    <div id="login-id">Logged in as: <% self.active_user.email %> | <a href="<% romeo.romeo_location %>/logout/">Log Out</a>
+                    | <a href="https://ssl<% self.cookie_domain %>/change_password/" title="Change your password..">Change Password</a>
+                    | <a href="http://forum.praux.com/" title="Praux.com forums!">Forum</a>
+                    | <a href="http://help.praux.com/projects/praux/" title="Praux.com help!">Help</a></div>
+                    <div id="top-nav">
+                    
+					<% IF self.active_user.resume %>
+						<a href="http://<% self.active_user.resume.instance %><% self.cookie_domain %>/edit/" title="Edit your resume.."/>Edit My Resume</a>
+						&nbsp; <a href="http://<% self.active_user.resume.instance %><% self.cookie_domain %>/" title="View your resume.."/>View My Resume</a>
+						&nbsp; <a href="http://<% self.active_user.resume.instance %><% self.cookie_domain %>/important_links/" title="Your resume's advanced links..">Navigate My Resume</a>
+					<% ELSE %>
+					    <a href="http://<% self.active_user.suggested_resume_host %>">Create My Resume</a>
+					<% END %>
+					</div>
+				</div>
+                <% ELSE %>
+                <% UNLESS no_login_box %>
+                    <div id="login">
+                        <form name="login" action="https://ssl<% self.cookie_domain %>/login/" style="display: span" method="post" id="signup-login-form">
+                            <input type="hidden" name="back" value="<% romeo.app_base %>"/>
+                            Email: <input type="text" size="16" name="email" class="small"/>  Password: <input type="password" size="16" class="small" name="password"/> <a href="/rpw/" style="font-size: 9px; color: #fff">forgot pw?</a>
+                            <input type="submit" value="Login" id="login-button"/> or <input type="submit" value="Sign Up" id="signup-button"/>
+                            <% IF self.romeo.session.login_error %>
+                            <!-- 
+                                <span style="color: white"><% self.romeo.session.login_error %></span>
+                            --> 
+                                <script>
+                                    praux_error("<% self.romeo.session.login_error %>", 3000);
+                                <% CALL self.romeo.session.login_error('__clear__') %>
+                                </script>
+                            <% END %>
+                        </form>
+                        <script type="text/javascript">
+                            $(function() {
+                                $('#signup-button').click(function() {
+                                    $("#signup-login-form").attr('action', "https://ssl<% self.romeo.c.COOKIE_DOMAIN %>/r1/");
+                                    $("#signup-login-form").submit();
+                                    return false;
+                                });
+                            });
+                        </script>
+                    </div>
+                <% END %>
+                <% END %>
+            </div><!-- /session-info -->
+	  
+      	<div id="praux-logo">
+        <a href="<% root_url %>/">
+        	<img src="/img/top_logo.png" alt="Praux.com" />
+        </a>
+        </div><!-- /praux-logo -->
+        <% UNLESS no_menu %>
+        	<!-- site-menu! -->
+        	<script>
+             $(function() {
+                 $('#csearch').focus(function() {
+                     if ($(this).val() == "Search resumes...") {
+                         $(this).val('');
+                         $(this).css('color', '#000');
+                     }
+                 });
+
+                 $('#csearch').blur(function() {
+                     if ($(this).val() == "") {
+                         $(this).val('Search resumes...');
+                         $(this).css('color', '#999');
+                     }
+                 });
+
+                 $('#csearch-form').submit(function() {
+                     if ($('#csearch').val() == "Search resumes...") {
+                         return false;
+                     }
+                 });
+
+                 if ($('#csearch').val() != 'Search resumes...') {
+                     $('#csearch').css('color', '#000');
+                 }
+
+             });
+             </script>
+        	<div id="praux-menu">
+                <table cellspacing="0" cellpadding="0" border="0">
+                    <tr valign="top">
+                        <td><form id="csearch-form" name="content_search" action="/page/content_search/" method="GET"><input type="text" size="20" id="csearch" name="q" <% UNLESS pt_data.q %>style="color: #999"<% END %> value="<% IF q %><% q %><% ELSE %>Search resumes...<% END %>"> <input type="Submit" value="Search" name="do"/></form></td>
+                        <% IF external_auth %>
+                            <% UNLESS self.active_user %>
+                                <td>
+                                    <fb:login-button onlogin="document.location = '/fbpostauth/'">Login Via Facebook</fb:login-button>
+                                </td>
+                            <% END %>
+                            <% IF fb %><td><fb:like href="<% self.resume.url %>" show_faces="false" layout="standard" width="275" action="like" colorscheme="light"/></td><% END %>
+                        <% END %>
+                    </tr>
+                </table>
+            </div>
+    	<% END %>
+		<% IF sub_title %>
+           	<!--<div id="subtitle"><% sub_title %></div>-->
+		<% END %>
+        
+      </div><!-- /header-inner -->
+    </div><!-- /site-header -->
+	
+	<% UNLESS is_front %>
+	<div id="praux-container" class="content">
+	<% END %>

@@ -1,0 +1,8 @@
+% layout 'idp';
+% title 'Login • MeritCommons Identity Provider';
+
+<div id="content-wrapper" class="container">
+    <div class="lead muted well">
+        <%= $self->stash('message') %>
+    </div>
+</div> <!-- /container -->

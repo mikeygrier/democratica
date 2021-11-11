@@ -1,0 +1,25 @@
+    <div class="footer">
+		<h2></h2>
+	</div>
+		<p style="width: 800px">&copy; 2010 <% resume.name %> - <% IF !self.is_myself %><a href="/important_links/" title="Navigate This Resume">navigate</a> this resume -<% END %> <a href="<% self.root_url %>">resumes by praux.com</a> <% IF !self.is_myself %>- <a href="https://ssl.praux.com/r1/?ref=<% self.resume.praux_user.id %>">get yours now!</a><% END %></p>
+		<% IF self.view != "edit" && !self.is_myself %>
+		    <p style="min-height: 115px">
+		        <a href="http://www.linkedin.com/shareArticle?mini=true&url=http://<% self.resume.instance %><% self.c.COOKIE_DOMAIN %>/<% self.view %>/<% self.lang %>/&title=<% resume.name %>'s Resume&summary=<% resume.random_excerpts %>&source=Praux.com" title="click this link to share on LinkedIn!"><img src="/img/linkedin_32.png" style="float: left; padding-right: 10px;" border="0"></a>&nbsp;
+		        <a href="http://twitter.com/home?status=Check out this Praux.com resume: http://<% self.resume.instance %><% self.c.COOKIE_DOMAIN %> #resume" title="click this link to share on twitter!"><img src="/img/twitter_32.png" style="float: left; padding-right:7px" border="0"></a><fb:like show_faces="true" layout="standard" width="450" action="like" colorscheme="light"/></p>
+		<% END %>
+        <div id="fb-root"></div>
+        <script>
+          window.fbAsyncInit = function() {
+            FB.init({appId: '<% self.c.FB_API_KEY %>', status: true, cookie: true, xfbml: true});
+          };
+          (function() {
+            var e = document.createElement('script'); e.async = true;
+            e.src = document.location.protocol +
+              '//connect.facebook.net/en_US/all.js';
+            document.getElementById('fb-root').appendChild(e);
+          }());
+        </script>
+		<!-- rendered in <% romeo.time_taken %> -->
+		<script type="text/javascript"></script>
+    </body>
+</html>

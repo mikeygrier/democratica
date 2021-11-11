@@ -1,0 +1,1 @@
+Hi, you're logged in as <% self.active_user.email %>

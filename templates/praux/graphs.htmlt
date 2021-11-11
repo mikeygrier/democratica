@@ -1,0 +1,103 @@
+<% BLOCK flot_single_series_graph %>
+<% id = self.new_uuid %>
+<script language="javascript" type="text/javascript">
+    $(function() {
+        $.plot($("#<% id %>"), [
+            {
+                label: "<% flot_data_label %>",
+                data: <% flot_data %>,
+            }
+        ], {
+            points: { show: true },
+            lines: { show: true }
+        });
+    });
+</script>
+<!-- placeholder div! -->
+<div style="height:<% flot_canvas_height %>;width: <% flot_canvas_width %>;" id="<% id %>"/>
+<% END %>
+
+<% BLOCK front_page_graph %>
+<% id = self.new_uuid %>
+<% flot_colors = ['#B73932', '#D3625F', '#95A9BA', '#AFB5BB', '#5B93B5', '#000000', '#AAAAAA', '#555555'] %>
+<script language="javascript" type="text/javascript">
+    $(function() {
+        $.plot($("#<% id %>"), [
+            <% i = 0 %>
+            <% FOREACH series = flot_series %>
+            <% i = i + 1 %>
+            {
+                label: "<% series.flot_data_label %>",
+                data: <% series.flot_data %>,
+                color: '<% flot_colors.shift %>'
+            }<% IF i < flot_series.size %>,<% END %>
+            <% END %>
+        ], {
+            points: { show: true },
+            lines: { show: true },
+            xaxis: {
+                mode: "time",
+                timeformat: "%b %d"
+            },
+            legend: {
+                container: $('#<% id %>-legend'),
+                labelFormatter: function(label, series) {
+                    if (label.match(/<% self.c.COOKIE_DOMAIN %>$/)) {
+                        return "<a href='http://" + label + "/resume.html'>" + label + "</a>";
+                    } else {
+                        return label;
+                    }
+                }
+            }
+        });
+    });
+</script>
+<!-- placeholder div! -->
+<div class="chart-wrapper">
+    <h3><% flot_chart_title %></h3>
+<div style="height:<% flot_legend_height %>;width: <% flot_legend_width %>;" id="<% id %>-legend" class="legend"></div>
+<div style="height:<% flot_canvas_height %>;width: 500px;" id="<% id %>" class="chart"></div>
+<div class="clear-both"></div>
+</div>
+<% END %>
+
+<% BLOCK flot_multi_series_graph %>
+<% id = self.new_uuid %>
+<script language="javascript" type="text/javascript">
+    $(function() {
+        $.plot($("#<% id %>"), [
+            <% i = 0 %>
+            <% FOREACH series = flot_series %>
+            <% i = i + 1 %>
+            {
+                label: "<% series.flot_data_label %>",
+                data: <% series.flot_data %>,
+            }<% IF i < flot_series.size %>,<% END %>
+            <% END %>
+        ], {
+            points: { show: true },
+            lines: { show: true },
+            xaxis: {
+                mode: "time",
+                timeformat: "%b %d"
+            },
+            legend: {
+                container: $('#<% id %>-legend'),
+                labelFormatter: function(label, series) {
+                    return "<a href='http://" + label + "/resume.html'>" + label + "</a>";
+                }
+            }
+        });
+    });
+</script>
+<!-- placeholder div! -->
+<div class="chart-wrapper">
+    <h3><% flot_chart_title %></h3>
+<div style="height:<% flot_legend_height %>;width: <% flot_legend_width %>;" id="<% id %>-legend" class="legend"></div>
+<div style="height:<% flot_canvas_height %>;width: <% flot_canvas_width %>;" id="<% id %>" class="chart"></div>
+</div>
+<% END %>
+
+<% BLOCK ajax_graph %>
+
+<% END %>

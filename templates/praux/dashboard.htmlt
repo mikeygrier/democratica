@@ -1,0 +1,285 @@
+<style>
+    .db-table {
+        width: 780px;
+        min-height: 400px;
+        font-family: helvetica, arial, sans-serif;
+        font-size: 10px;
+    }
+    .db-table td, .db-table tr {
+        margin: 0;
+        padding: 0;
+    }
+    .db-value {
+        font-family: helvetica, arial, sans-serif;
+        font-size: 10px;
+        background-color: #EDF2F9;
+    }
+    .db-time-label {
+        font-family: helvetica, arial, sans-serif;
+        font-size: 10px;
+        font-weight: bold;
+    }
+    .db-stat-label {
+        font-family: helvetica, arial, sans-serif;
+        font-size: 11px;
+        font-weight: bold;
+    }
+    .db-stat-header {
+        font-family: helvetica, arial, sans-serif;
+        font-size: 14px;
+        background-color: #B73932;
+        color: #fff;
+        font-weight: bold;
+    }
+</style>
+<table class="db-table" cellpadding="0" cellspacing="0">
+    <tr height="66%" valign="middle">
+        <td width="30%" align="center">
+            <table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td colspan="3" class="db-stat-header" align="center">
+                        Your Resume Stats
+                    </td>
+                </tr>
+                <% resume = self.active_user.resume.id %>
+                <% dbdata = self.report.resume_edits_three_time(resume) %>
+                <% stat_label = "Resume Edits" %>
+                <% first_label = "Hour" %>
+                <% second_label = "Day" %>
+                <% third_label = "Week" %>
+                <% INCLUDE three_time_block_stats %>
+            
+                <% dbdata = self.report.resume_views_people_three_time(resume) %>
+                <% stat_label = "Resume Views (People)" %>
+                <% first_label = "Hour" %>
+                <% second_label = "Day" %>
+                <% third_label = "Week" %>
+                <% INCLUDE three_time_block_stats %>
+                
+                <% dbdata = self.report.resume_views_robots_three_time(resume) %>
+                <% stat_label = "Resume Views (Robots)" %>
+                <% first_label = "Hour" %>
+                <% second_label = "Day" %>
+                <% third_label = "Week" %>
+                <% INCLUDE three_time_block_stats %>
+                <tr>
+                    <td colspan="3">
+                        &nbsp;
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        &nbsp;
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" class="db-stat-header" align="center">
+                        Advanced Stats Coming Soon
+                    </td>
+                </tr>
+                <tr>
+                    <td class="font-size: 24px;" colspan="3" align="left">
+                        We're hard at work coming up with ways to provide you with more intelligence to help your professional advancement.
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td width="70%" rowspan="2" align="center">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td width="100%" align="right">
+                        <table width="95%" border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td class="db-stat-header" align="center">
+                                    <a style="color: #fff" href="http://blog.praux.com">Praux.com Blog</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-size: 12px; font-weight: bold">
+                                    we are currently experiencing technical difficulties with the Praux.com blog.
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        &nbsp;
+                    </td>
+                </tr>
+                <tr>
+                    <td width="100%" align="right">
+                        <table width="95%" border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td width="20%" class="db-stat-header" style="font-size: 12px; font-weight: bold" align="center">
+                                    Comments
+                                </td>
+                                <td width="20%" class="db-stat-header" style="font-size: 12px; font-weight: bold" align="center">
+                                    Suggestions
+                                </td>
+                                <td width="20%" class="db-stat-header" style="font-size: 12px; font-weight: bold" align="center">
+                                    Accepted
+                                </td>
+                                <td width="20%" class="db-stat-header" style="font-size: 12px; font-weight: bold" align="center">
+                                    Score
+                                </td>
+                                <td width="20%" class="db-stat-header" style="font-size: 12px; font-weight: bold" align="center">
+                                    Completeness
+                                </td>
+                            </tr>
+                            <% ri = self.resume_info(self.active_user.resume) %>
+                            <tr>
+                                <td width="20%" style="font-size: 10px" align="center">
+                                    <% ri.comments %> total, <% ri.comments - ri.comments_read OR "0" %> unread
+                                </td>
+                                <td width="20%" style="font-size: 10px" align="center">
+                                    <% ri.suggestions OR "0" %>
+                                </td>
+                                <td width="20%" style="font-size: 10px" align="center">
+                                    <% ri.total_suggestions_accepted OR "0" %>
+                                </td>
+                                <td width="20%" style="font-size: 10px" align="center">
+                                    <% ri.score OR "0" %>
+                                </td>
+                                <td width="20%" style="font-size: 10px" align="center">
+                                    <% self.active_user.resume.completeness OR "0" %>%
+                                </td>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        &nbsp;
+                    </td>
+                </tr>
+                <tr>
+                    <td width="100%" align="right">
+                        <table width="95%" border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td class="db-stat-header" align="center">
+                                    Job Listings - Powered By <a style="color: #fff" href="http://linkup.com">LinkUp.com</a>
+                                </td>
+                            </tr>
+                            <% i = 0 %>
+                            <% IF self.linkup_jobs(self.active_user.resume).size > 0 %>
+                                <% FOREACH job = self.linkup_jobs(self.active_user.resume) %>
+                                <% i = i + 1 %>
+                                    <tr>
+                                        <td style="font-size: 12px; font-weight: bold">
+                                            <a style="color: #000" href="<% job.job_title_link %>"><% job.job_title %></a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-size: 10px">
+                                            <% job.job_description %>
+                                        </td>
+                                    </tr>
+                                <% LAST IF i == 3 %>
+                                <% END %>
+                            <% ELSE %>
+                                <tr>
+                                    <td align="center">
+                                        Sorry, we were unable to find any matching jobs at this time.
+                                    </td>
+                                </tr>
+                            <% END %>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr height="33%">
+        <td width="30%" align="center">
+            <table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td colspan="3">
+                        &nbsp;
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" class="db-stat-header" align="center">
+                        Site-Wide Stats
+                    </td>
+                </tr>
+                <% dbdata = self.report.site_edits_three_time %>
+                <% stat_label = "Resume Edits" %>
+                <% first_label = "Hour" %>
+                <% second_label = "Day" %>
+                <% third_label = "Week" %>
+                <% INCLUDE three_time_block_stats %>
+            
+                <% dbdata = self.report.site_views_people_three_time %>
+                <% stat_label = "Resume Views (People)" %>
+                <% first_label = "Hour" %>
+                <% second_label = "Day" %>
+                <% third_label = "Week" %>
+                <% INCLUDE three_time_block_stats %>
+                
+                <% dbdata = self.report.site_views_robots_three_time %>
+                <% stat_label = "Resume Views (Robots)" %>
+                <% first_label = "Hour" %>
+                <% second_label = "Day" %>
+                <% third_label = "Week" %>
+                <% INCLUDE three_time_block_stats %>
+                <tr>
+                    <td colspan="3">
+                        &nbsp;
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+
+<% BLOCK three_time_block_stats %>
+    <tr>
+        <td colspan="3" class="db-stat-label" align="center">
+            <% stat_label %>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <table height="100%" width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td align="center" width="100%" class="db-time-label">
+                        <% first_label %>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center" width="100%" class="db-value">
+                        <% dbdata.0 %>
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td>
+            <table height="100%" width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td align="center" width="100%" class="db-time-label">
+                        <% second_label %>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center" width="100%" class="db-value">
+                        <% dbdata.1 %>
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td>
+            <table height="100%" width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td align="center" width="100%" class="db-time-label">
+                        <% third_label %>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center" width="100%" class="db-value">
+                        <% dbdata.2 %>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+<% END %>

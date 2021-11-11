@@ -1,0 +1,58 @@
+<% title = self.romeo.instance _ " is available!" %>
+<% no_menu = 1 %>
+<% INCLUDE praux/header.htmlt %>
+
+<div style="padding: 5px">
+<p><em><% self.romeo.instance %></em> is available!</p>
+<% IF self.active_user %>
+    <% IF self.active_user.resume %>
+    <script type="text/javascript">
+        $(function() {
+            $('#confirm').click(function() {
+                $('#dialog').dialog({
+                    bgiframe: true,
+                    resizable: false,
+                    height: 190,
+                    width: 400,
+                    modal: true,
+                    overlay: {
+                        backgroundColor: '#000',
+                        opacity: 0.75
+                    },
+                    buttons: {
+                        'No': function() {
+                            $(this).dialog('close');
+                            return false;
+                        },
+                        'Yes': function() {
+                            document.location = '/move_resume/';
+                        }
+                    }
+                });
+                $('#dialog').dialog('open');
+                return false;
+            });
+        });
+    </script>
+
+    <p>
+        Ahh, I see you already have a resume at <em><% self.active_user.resume.instance %><% self.cookie_domain %></em> <a href="/move_resume/" id="confirm">click here</a>.
+        to move your resume to <em><% self.romeo.instance %></em> instead.
+    </p>
+    <% ELSE %>
+    <p>
+        If you want to claim <em><% self.romeo.instance %></em> as your own, <a href="/create_resume/">click here</a>.
+    </p>
+    <% END %>
+<% ELSE %>
+<p>
+    You have to register for a Praux.com account <a href="https://ssl<% self.cookie_domain %>/register/">here</a>, and log in above to create a Praux.com resume.
+</p>
+<% END %>
+</div>
+
+<div id="dialog" title="Confirm Resume Move" style="display:none;">
+    <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Are you sure you want to move your resume to <em><% self.romeo.instance %></em>?</p>
+ </div>
+
+<% INCLUDE praux/footer.htmlt %>

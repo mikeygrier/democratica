@@ -1,0 +1,84 @@
+<% title = "Now You Can Create Your Praux.com Resume!" %>
+<% sub_title = "<span style='font-size: 16px;'>You want to claim " _ self.romeo.instance _ "?</span>" %>
+<% no_menu = 1 %>
+<% no_login_box = 1 %>
+<% fb = 1 %>
+<% INCLUDE praux/header.htmlt %>
+    <div style="padding: 5px;">
+		<form name="new_resume" method="post" action="https://<% IF self.is_dev %>ssl.prauxdev.com<% ELSE %>ssl.praux.com<% END %><% romeo.romeo_location %>/fb_create_resume/">
+        
+		<% IF error %>
+		    <p class="error">Error: <% error %></p>
+		<% END %>
+		
+		<% existing_user = self.user_by_email(self.fb_email) %>
+		
+		<% IF existing_user %>
+		    <% CALL existing_user.external_id(self.fb.users.get_logged_in_user) %>
+		    <% CALL existing_user.external_type('fb') %>
+		    <% CALL existing_user.update() %>
+		    <script>
+		        document.location = '<% self.root_url %>/fb2praux/?back=<% self.root_url %>';
+		    </script>
+		<% END %>
+
+    	    <input type="hidden" name="is_submit" value="1"/>
+
+            <div class="form-element">
+                <label class="form-label">Resume URL</label>
+                <span style="font-weight: bold">http://</span><input type="text" class="medium" name="instance" value=""/><span style="font-weight: bold">.praux.com</span>
+            </div>
+			<div class="form-element">
+		        <label class="form-label">Full Name</label>
+		        <input type="text" class="medium" name="name" value=""/>
+			</div>
+
+            <div class="form-element">
+		        <input type="checkbox" name="accepted_terms_of_service" id="tos_accept_cb" <% IF self.session.accepted_terms_of_service %>checked<% END %> value="1"/>
+			    <span id="tos_accept">I have read and understand the Praux.com <a href="/page/tos/">Terms of Service</a>.</span>
+    		</div>
+            
+            <hr/>
+            
+            <p style="height: 15px">The rest of this is optional and will be published on your resume..</p>
+
+			<div class="form-element">
+		        <label class="form-label">Telephone Number</label>
+		        <input type="text" class="medium" name="phone"/>
+			</div>
+			<div class="form-element">
+		        <label class="form-label">Full Postal Address</label>
+		        <input type="text" class="medium" name="address"/>
+			</div>
+			<div class="form-element">
+		        <input style="height:20px" type="submit" value="Create Resume"/> or <a class="modal-close" href="/">Cancel</a>
+			</div>
+			
+		</form>
+    </div>
+    <% UNLESS is_front %>
+	</div> <!-- /praux-container -->
+	<% END %>
+
+	<div id="footer">
+      <div id="footer-inner">
+         <% IF self.is_dev %><p>I thought about this page for: <% romeo.time_taken %> seconds</p><% END %>
+         <p>&copy; 2010 Praux.com, all rights reserved<br/></p>
+         <p>praux.com - <% IF self.is_dev %> <% self.version %> - <span style='text-decoration: line-through'>DEVELOPMENT</span> - <% END %> <a href="http://praux.com/page/privacy/">privacy</a> - <a href="http://praux.com/page/tos/">terms of service</a> - <a href="http://praux.com/page/about_us/">about</a> - <a href="http://praux.com/page/master_list/">master list</a> - <a href="http://praux.com/page/content_search/">search resum&#233;s</a> - <a href="http://help.praux.com">help</a></p>
+      </div><!-- /footer-inner -->
+    </div><!-- /footer -->
+    <% IF self.instance != "ssl" %>
+        <script type="text/javascript"></script>
+    <% END %>
+    <script type="text/javascript" src="http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php"></script>
+    <script type="text/javascript">
+        FB.init('<% self.c.FB_API_KEY %>', '/page/fb_xd_receiver/');
+        <% UNLESS self.fb_email %>
+            FB.ensureInit(function() { FB.Connect.showPermissionDialog("email", function (perms) {
+                document.location = document.location;
+            }); });
+        <% END %>
+    </script>
+    </body>
+</html>
+

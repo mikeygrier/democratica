@@ -1,0 +1,18 @@
+<% fb = 1 %>
+<% no_menu = 1 %>
+<% title = "Facebook Session Checker" %>
+<% INCLUDE praux/header.htmlt %>
+<pre>
+And the winner is: <% self.fb.users.get_logged_in_user %>
+
+Ok.  <% self.fb_email %>
+
+
+FBML: <fb:name uid="loggedinuser" useyou="false"></fb:name> <fb:profile-pic uid='loggedinuser' facebook-logo='false'></fb:profile-pic>
+
+<fb:prompt-permission perms="publish_stream,email">Allow Praux.com to notify you via Email, and to publish to your Facebook Stream</fb:prompt-permission>
+
+Facebook is: <% self.fb %>
+
+</pre>
+<% INCLUDE praux/footer.htmlt %>

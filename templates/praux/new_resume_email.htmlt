@@ -1,0 +1,31 @@
+Hello!
+
+Thanks for deciding to use Praux.com, the newest tool in your job-
+finding bat-belt that is surely to aid you in your career.  We had 
+a few hunches when we started Praux that are starting to be proven 
+true.  Instead of you finding employers, employers are actually looking 
+for you first!  So before the posting even makes it up on a job site or
+in the classifieds, they're scouring the internet looking for potential 
+candidates!
+
+Get started making your public-facing resume right now by logging in to 
+Praux.com and navigating to:
+
+ <% user.resume.url OR "http://" _ user.suggested_resume_host %>/edit/
+
+in your web browser!
+
+We're still figuring out where we fit in.  A lot of this depends on 
+professionals like you.  We're collecting data right now and we will 
+share all sorts of neat and useful information with you in the coming 
+months pertaining to who's looking at your resume, when they saw it, 
+who they work for, and what the job might be all about.  What we ask 
+in return is that you send ideas our way, and report bugs and usability
+issues to us so that we can improve our product and your experience.
+
+Grow as we grow at Praux!
+
+Michael Gregorowicz
+--_-
+The Guy Who Made Praux.com
+michael@praux.com

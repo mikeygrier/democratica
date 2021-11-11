@@ -1,0 +1,181 @@
+<% IF pt_data.q %>
+    <% title = "Praux Tools - Content Search - " _ pt_data.q %>
+    <% sub_title = "<span style='font-size: 16px;'>Searching for '" _ pt_data.q _ "' found " _ pt_data.result_count _ " result(s).</span>" %>
+<% ELSE %>
+    <% title = "Praux Tools - Content Search" %>
+    <% sub_title = "<span style='font-size: 16px;'>Please Enter A Search Term</span>" %>
+<% END %>
+
+<% IF pt_data.order_by == "resume" %>
+    <% IF pt_data.sort_order == "desc" %>
+        <% resume_sort_toggle = "/pt/cs.xhtml?q=" _ pt_data.q _ "&order_by=resume&sort_order=asc" _ "&page=" _ pt_data.this_page %>
+    <% ELSE %>
+        <% resume_sort_toggle = "/pt/cs.xhtml?q=" _ pt_data.q _ "&order_by=resume&sort_order=desc" _ "&page=" _ pt_data.this_page %>
+    <% END %>
+<% ELSE %>
+    <% resume_sort_toggle = "/pt/cs.xhtml?q=" _ pt_data.q _ "&order_by=resume&sort_order=desc" _ "&page=" _ pt_data.this_page %>
+<% END %>
+
+<% IF pt_data.order_by == "owner" %>
+    <% IF pt_data.sort_order == "desc" %>
+        <% owner_sort_toggle = "/pt/cs.xhtml?q=" _ pt_data.q _ "&order_by=owner&sort_order=asc" _ "&page=" _ pt_data.this_page %>
+    <% ELSE %>
+        <% owner_sort_toggle = "/pt/cs.xhtml?q=" _ pt_data.q _ "&order_by=owner&sort_order=desc" _ "&page=" _ pt_data.this_page %>
+    <% END %>
+<% ELSE %>
+    <% owner_sort_toggle = "/pt/cs.xhtml?q=" _ pt_data.q _ "&order_by=owner&sort_order=desc" _ "&page=" _ pt_data.this_page %>
+<% END %>
+
+<% IF pt_data.order_by == "hit_count" %>
+    <% IF pt_data.sort_order == "desc" %>
+        <% hits_sort_toggle = "/pt/cs.xhtml?q=" _ pt_data.q _ "&order_by=hit_count&sort_order=asc" _ "&page=" _ pt_data.this_page %>
+    <% ELSE %>
+        <% hits_sort_toggle = "/pt/cs.xhtml?q=" _ pt_data.q _ "&order_by=hit_count&sort_order=desc" _ "&page=" _ pt_data.this_page %>
+    <% END %>
+<% ELSE %>
+    <% hits_sort_toggle = "/pt/cs.xhtml?q=" _ pt_data.q _ "&order_by=hit_count&sort_order=desc" _ "&page=" _ pt_data.this_page %>
+<% END %>
+
+<% IF pt_data.order_by == "last_change_epoch" %>
+    <% IF pt_data.sort_order == "desc" %>
+        <% last_change_sort_toggle = "/pt/cs.xhtml?q=" _ pt_data.q _ "&order_by=last_change_epoch&sort_order=asc" _ "&page=" _ pt_data.this_page %>
+    <% ELSE %>
+        <% last_change_sort_toggle = "/pt/cs.xhtml?q=" _ pt_data.q _ "&order_by=last_change_epoch&sort_order=desc" _ "&page=" _ pt_data.this_page %>
+    <% END %>
+<% ELSE %>
+    <% last_change_sort_toggle = "/pt/cs.xhtml?q=" _ pt_data.q _ "&order_by=last_change_epoch&sort_order=desc" _ "&page=" _ pt_data.this_page %>
+<% END %>
+
+<% IF pt_data.order_by == "default_language" %>
+    <% IF pt_data.sort_order == "desc" %>
+        <% language_sort_toggle = "/pt/cs.xhtml?q=" _ pt_data.q _ "&order_by=default_language&sort_order=asc" _ "&page=" _ pt_data.this_page %>
+    <% ELSE %>
+        <% language_sort_toggle = "/pt/cs.xhtml?q=" _ pt_data.q _ "&order_by=default_language&sort_order=desc" _ "&page=" _ pt_data.this_page %>
+    <% END %>
+<% ELSE %>
+    <% language_sort_toggle = "/pt/cs.xhtml?q=" _ pt_data.q _ "&order_by=default_language&sort_order=desc" _ "&page=" _ pt_data.this_page %>
+<% END %>
+
+<% no_menu = 1 %>
+<% INCLUDE praux/header.htmlt %>    
+    <style>
+    /*.table_container {
+        padding: 5px;
+        width: 80%;
+        border: none;
+        background-color: #fff;
+    }
+    table.resume_list {
+        border: none;
+        background-color: #fff;
+    }
+    tr.header_row {
+        font-weight: bold;
+    }
+    td {
+        border: 1px black solid;
+    }
+
+    tr.spacer {
+        border: none;
+        backgroind-color: #fff;
+    }
+    td.spacer {
+        border: none;
+        background-color: #fff;
+    }
+
+    tr.resume {
+        background-color: #fff;
+        border-bottom: 2px black solid;
+    }
+    tr.summary {
+        background-color: #fff;
+    }
+    tr.even {
+        background-color: #ddd;
+    }
+    div.search_container {
+        padding: 4px;
+    }*/
+    </style>
+    <div class="table_container">
+        <div class="search_container">
+            <script>
+            $(function() {
+                $('#csearch').focus(function() {
+                    if ($(this).val() == "Search for...") {
+                        $(this).val('');
+                        $(this).css('color', '#000');
+                    }
+                });
+
+                $('#csearch').blur(function() {
+                    if ($(this).val() == "") {
+                        $(this).val('Search for...');
+                        $(this).css('color', '#999');
+                    }
+                });
+                
+                if ($('#csearch').val() != 'Search for...') {
+                    $('#csearch').css('color', '#000');
+                }
+                
+            });
+            </script>
+            <form name="content_search" method="GET">
+                <input type="text" name="q" size="28" id="csearch" value="<% IF pt_data.q %><% pt_data.q %><% ELSE %>Search for...<% END %>" <% UNLESS pt_data.q %>style="color: #999"<% END %>/> <input type="Submit" value="Search" name="do"/>
+            </form>
+        </div>
+        <% IF pt_data.result_count > 0 %>
+            <table class="resume_list" cellspacing="0">
+                <tr class="header_row">
+                    <th><a href="<% resume_sort_toggle %>">Resume</a></th>
+                    <th><a href="<% owner_sort_toggle %>">Owner</a></th>
+                    <th><a href="<% hits_sort_toggle %>">Hits</a></th>
+                    <th><a href="<% last_change_sort_toggle %>">Last Change</a></th>
+                    <th><a href="<% language_sort_toggle %>">Default Language</a></th>
+                </tr>
+                
+                <% i = 0 %>
+                <% FOREACH res = pt_data.payload %>
+                    <% i = i + 1 %>
+                    <tr class="resume <% i % 2 ? 'odd' : 'even' %>">
+                        <td class="<% i % 2 ? 'odd' : 'even' %>"><a href="http://<% res.resume %>/"><% res.resume %></a></td>
+                        <td class="<% i % 2 ? 'odd' : 'even' %>"><% res.name %></td>
+                        <td class="<% i % 2 ? 'odd' : 'even' %>"><% res.hit_count %></td>
+                        <td class="<% i % 2 ? 'odd' : 'even' %>"><% self.pretty_date(res.last_change_epoch) %></td>
+                        <td class="<% i % 2 ? 'odd' : 'even' %>"><% self.lang_short_to_long(res.default_language) %></td>
+                    </tr>
+                    <tr class="summary <% i % 2 ? 'odd' : 'even' %>">
+                        <td colspan="5" class="<% i % 2 ? 'odd' : 'even' %>">
+                            <% res.random_excerpts %>
+                        </td>
+                    </tr>
+                    
+                <% END %>
+            </table>
+            <% IF pt_data.max_page == 1 %>
+                &lt;&lt;&nbsp;&lt;&nbsp;&gt;&nbsp;&gt;&gt;&nbsp;
+            <% ELSE %>
+                <% IF pt_data.max_page == this_page %>
+                    <a href="/pt/cs.xhtml?q=<% pt_data.q %>&order_by=<% pt_data.order_by %>&sort_order=<% pt_data.sort_order %>&page=1">&lt;&lt;</a>
+                    &nbsp;<a href="/pt/cs.xhtml?q=<% pt_data.q %>&order_by=<% pt_data.order_by %>&sort_order=<% pt_data.sort_order %>&page=<% pt_data.this_page - 1 %>">&lt;</a>
+                    &gt; &gt;&gt;&nbsp;
+                <% ELSIF pt_data.this_page == 1 %>
+                    &lt;&lt;&nbsp;&lt;&nbsp;
+                    <a href="/pt/cs.xhtml?q=<% pt_data.q %>&order_by=<% pt_data.order_by %>&sort_order=<% pt_data.sort_order %>&page=<% pt_data.this_page + 1 %>">&gt;</a>
+                    &nbsp;<a href="/pt/cs.xhtml?q=<% pt_data.q %>&order_by=<% pt_data.order_by %>&sort_order=<% pt_data.sort_order %>&page=<% pt_data.max_page %>">&gt;&gt;</a>    
+                    &nbsp;
+                <% ELSE %>
+                    <a href="/pt/cs.xhtml?q=<% pt_data.q %>&order_by=<% pt_data.order_by %>&sort_order=<% pt_data.sort_order %>&page=1">&lt;&lt;</a>
+                    &nbsp;<a href="/pt/cs.xhtml?q=<% pt_data.q %>&order_by=<% pt_data.order_by %>&sort_order=<% pt_data.sort_order %>&page=<% pt_data.this_page - 1 %>">&lt;</a>
+                    &nbsp;<a href="/pt/cs.xhtml?q=<% pt_data.q %>&order_by=<% pt_data.order_by %>&sort_order=<% pt_data.sort_order %>&page=<% pt_data.this_page + 1 %>">&gt;</a>
+                    &nbsp;<a href="/pt/cs.xhtml?q=<% pt_data.q %>&order_by=<% pt_data.order_by %>&sort_order=<% pt_data.sort_order %>&page=<% pt_data.max_page %>">&gt;&gt;</a>
+                    &nbsp;
+                <% END %>
+            <% END %>
+            Found Resumes <% pt_data.first_on_page %> - <% pt_data.last_on_page %> of <% pt_data.result_count %>.
+        <% END %>
+    </div>
+<% INCLUDE praux/footer.htmlt %>

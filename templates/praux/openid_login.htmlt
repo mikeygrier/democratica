@@ -1,0 +1,129 @@
+<% title = "OpenID Authentication - Identify Yourself" %>
+<% no_login_box = 1 %>
+<% no_menu = 1 %>
+<% INCLUDE praux/header.htmlt %>
+    <table width="100%" height="100%" cellspacing="0" cellpadding="0">
+        <tr height="33%">
+            <td>
+                <img height="1" width="1">
+            </td>
+        </tr>
+        <tr height="33%">
+            <td valign="middle">
+                <table width="100%" height="100%" cellspacing="0" cellpadding="0" align="center" valign="center">
+                    <tr>
+                        <td width="33%">
+                            &nbsp;
+                        </td>
+                        <td width="33%">
+                            <table width="320" height="180" cellspacing="0" cellpadding="0" align="center" valign="center">
+                                <tr>
+                                    <td align="center" width="100%" height="100%" class="box" colspan="2">
+                                        <table width="320" height="180" cellspacing="0" cellpadding="1" align="center" valign="center">
+                                            <tr>
+                                                <td colspan="4">
+                                                    &nbsp;
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td align="center" colspan="4">
+                                                    <div>
+                                                        <img src="/img/openid.png"/>
+                                                    </div>
+                                                    <div class="normal_text">To continue, please enter your Praux.com email and password below.</div>
+                                                </td>
+                                            </tr>
+                                            <form name="login" action="https://ssl<% self.c.COOKIE_DOMAIN %>/login/" method="post">
+                                                <input type="hidden" name="failback" value="http://<% self.resume.instance %><% self.c.COOKIE_DOMAIN %>/page/openid_login/"/>
+                                                
+                                                <% IF self.romeo.param('back') %>
+                                                    <% successback = self.session.openid_successback(self.romeo.param('back')) %>
+                                                <% ELSIF self.session.openid_successback %>
+                                                    <% successback = self.session.openid_successback %>
+                                                <% ELSE %>
+                                                    <% successback = "" %>
+                                                <% END %>
+                                                
+                                                <input type="hidden" name="successback" value="<% successback %>"/>
+                                            <tr>
+                                                <td colspan="4">
+                                                    &nbsp;
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="25%">
+                                                    &nbsp;
+                                                </td>
+                                                <td colspan="1" align="left" width="25%">
+                                                    <div class="normal_text">Email:</div>
+                                                </td>
+                                                <td colspan="1" align="left" width="25%">
+                                                    <input type="text" size="26" maxlength="28" name="email">
+                                                </td>
+                                                <td width="25%">
+                                                    &nbsp;
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="4">
+                                                    &nbsp;
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="25%">
+                                                    &nbsp;
+                                                </td>
+                                                <td colspan="1" align="left" width="25%">
+                                                    <div class="normal_text">Password:</div>
+                                                </td>
+                                                <td colspan="1" align="left" width="25%">
+                                                    <input type="password" size="26" maxlength="28" name="password">
+                                                </td>
+                                                <td width="25%">
+                                                    &nbsp;
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="4">
+                                                    <div style="font-size: 10px;color:red" align="center"><% self.romeo.session.login_error %></div>
+                                                        <% IF self.romeo.session.login_error %>
+                                                            <% CALL self.romeo.session.login_error('__clear__') %>
+                                                        <% END %>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3" width="75%">
+                                                    &nbsp;
+                                                </td>
+                                                <td width="25%">
+                                                    <input type="submit" value="Login" name="submit">
+                                                    <img height="1" width="10">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="4">
+                                                    &nbsp;
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td width="33%">
+                            &nbsp;
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr height="34%" valign="bottom">
+            <td align="right">
+                <div class="tiny_text"> </div>
+            </td>
+        </tr>
+    </table>
+    <script language="javascript">
+        document.login.email.focus();
+    </script>
+<% INCLUDE praux/footer.htmlt %>

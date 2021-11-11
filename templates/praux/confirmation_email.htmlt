@@ -1,0 +1,13 @@
+Hey There,
+
+Please click this link below to activate your Praux account!
+
+<% self.romeo.app_base %>/register/confirm_registration/<% user.verify_token %>/
+
+Once you get back, make sure you click "Create Your Resume" to get started building
+your online professional image, your best resume realized!
+
+Thanks,
+
+The Praux Team
+admin@praux.com

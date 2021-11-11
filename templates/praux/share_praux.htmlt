@@ -1,0 +1,30 @@
+<% title = "Share Praux.com with your Friends &amp; Family!" %>
+<% sub_title = "<span style='font-size: 16px;'>Share it!</span>" %>
+<% meta_description = "Praux.com seeks to become a catalyst in modernizing the online career seeker’s playing field. By establishing and publishing standards, integration points, and internet communities, Praux.com aims to become the premier hub for career information sourced from individuals, universities and employers. Leveraging existing technology wherever we can, we will uniformly present this information to potential employers, allow them to use more modern social networking workflows, and strengthen the effectiveness of communication between employee and employer." %>
+<% meta_title = "Praux.com - The resume host with the most!" %>
+<% no_login_box = 1 %>
+<% no_menu = 1 %>
+
+<% IF !self.active_user OR self.active_user.preference('com.praux.viralnagoff') %>
+    <script>
+        document.location = 'http://<% IF self.is_dev %>prauxdev.com<% ELSE %>praux.com<% END %>/';
+    </script>
+<% END %>
+
+<% INCLUDE praux/header.htmlt %>
+    <div style="padding: 5px">
+        <h1>Hey!  Glad we caught you!</h1>
+        <p>It would mean a lot to us if you would take just a moment to share Praux.com with your Friends &amp; Family!</p>
+        <p>You can use the links below to share on Facebook&trade;, Twitter&trade;, and LinkedIn&trade;</p>
+        <br/>
+        <script>function fbs_click() {u="https://ssl.praux.com/r1/?ref=<% self.active_user.id %>";t=document.title;window.open('http://www.facebook.com/sharer.php?u='+encodeURIComponent(u)+'&t='+encodeURIComponent(t),'sharer','toolbar=0,status=0,width=626,height=436');return false;}</script><a href="http://www.facebook.com/share.php" class="fb_share_button" onclick="return fbs_click()" target="_blank" style="text-decoration:none;font-size:12px;color:black"><img src="/img/facebook_32.png" border="0"/></a>
+	    <a href="http://twitter.com/home?status=<% meta_description %>" title="click this link to share on twitter!"><img src="/img/twitter_32.png" border="0"></a>
+	    <a href="http://www.linkedin.com/shareArticle?mini=true&url=https://ssl.praux.com/r1/?ref=<% self.active_user.id %>&title=Praux.com - The resume host with the most!&summary=<% meta_description %>&source=Praux.com" title="click this link to share on LinkedIn!"><img src="/img/linkedin_32.png" border="0"></a>
+        <br/><br/>
+        <p>Oh by the way, the person with the most referrals at the end of any given month will automatically receive a $10 Starbucks Coffee Gift Card!</p>
+        <br/><br/>
+        <div class="form-element">
+	        <input type="button" onClick="javascript:document.location=document.referrer?document.referrer:'http://<% IF self.is_dev %>prauxdev.com<% ELSE %>praux.com<% END %>/'" value="Ok"/> &nbsp;&nbsp; <input type="button" onClick="document.location = '/usersetpref/?k=com.praux.viralnagoff&v=1&back=http://<% IF self.is_dev %>prauxdev.com<% ELSE %>praux.com<% END %>/'" value="Don't Nag Me About This"/> 
+		</div>
+    </div>
+<% INCLUDE praux/footer.htmlt %>

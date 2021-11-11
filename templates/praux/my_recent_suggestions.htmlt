@@ -1,0 +1,63 @@
+<% title = "My Recent Suggestions" %>
+<% no_menu = 1 %>
+<% INCLUDE praux/header.htmlt %>
+    <div style="padding: 5px">
+        <% IF self.active_user %>
+        <% recent_suggestions = self.active_user.recent_suggestions_paged(self.romeo.param('page')) %>
+        <% pager = recent_suggestions.pager %>
+            <h1>Suggestions You've Made</h1>
+            <table>
+                <tr>
+                    <th>Resume</th>
+                    <th>Suggest Date</th>
+                    <th>Suggestion Accepted</th>
+                </tr>
+                <% FOREACH suggestion = recent_suggestions.all %>
+                <tr>
+                    <td><a href="<% suggestion.resume.url %>/"><% suggestion.resume.url %></a></td>
+                    <td><% self.pretty_date(suggestion.create_time) %></td>
+                    <td>
+                        <% sug = suggestion.suggestion %>
+                        <% IF sug.in_storage %>
+                            <% IF sug.used %>
+                                <% IF sug.verbatim %>
+                                    Yes - Verbatim
+                                <% ELSE %>
+                                    Yes - Derivative
+                                <% END %>
+                            <% ELSE %>
+                                Not Yet
+                            <% END %>
+                        <% ELSE %>
+                            Suggestion Refused
+                        <% END %>
+                    </td>
+                </tr>
+                <% END %>
+            </table>
+            <% IF pager.last_page == 1 %>
+                &lt;&lt;&nbsp;&lt;&nbsp;&gt;&nbsp;&gt;&gt;&nbsp;
+            <% ELSE %>
+                <% IF pager.last_page == pager.current_page %>
+                    <a href="/page/my_recent_suggestions/?page=<% pager.first_page %>">&lt;&lt;</a>
+                    &nbsp;<a href="/page/my_recent_suggestions/?page=<% pager.previous_page %>">&lt;</a>
+                    &gt; &gt;&gt;&nbsp;
+                <% ELSIF pager.current_page == 1 %>
+                    &lt;&lt;&nbsp;&lt;&nbsp;
+                    <a href="/page/my_recent_suggestions/?page=<% pager.next_page %>">&gt;</a>
+                    &nbsp;<a href="/page/my_recent_suggestions/?page=<% pager.last_page %>">&gt;&gt;</a>    
+                    &nbsp;
+                <% ELSE %>
+                    <a href="/page/my_recent_suggestions/?page=<% pager.first_page %>">&lt;&lt;</a>
+                    &nbsp;<a href="/page/my_recent_suggestions/?page=<% pager.previous_page %>">&lt;</a>
+                    &nbsp;<a href="/page/my_recent_suggestions/?page=<% pager.next_page %>">&gt;</a>
+                    &nbsp;<a href="/page/my_recent_suggestions/?page=<% pager.last_page %>">&gt;&gt;</a>
+                    &nbsp;
+                <% END %>
+            <% END %>
+            Suggestions <% pager.entries_per_page * (pager.current_page - 1) + 1 %> - <% pager.entries_per_page * (pager.current_page - 1) + pager.entries_on_this_page %> of <% pager.total_entries %>
+        <% ELSE %>
+            <h1>Log In Please</h1>
+        <% END %>
+    </div>
+<% INCLUDE praux/footer.htmlt %>

@@ -1,0 +1,28 @@
+<% title = "Praux.com Spring Resume Drive" %>
+<% no_menu = 1 %>
+<% INCLUDE praux/header.htmlt %>
+    <div style="padding: 5px">
+        <% IF self.active_user %>
+            <h1>Your Referrals</h1>
+            <table style="width: 780px">
+                <tr>
+                    <td rowspan="4" style="text-align: center">
+                        <img src="/img/ipod_touch.jpg"/>
+                    </td>
+                    <th style="font-size: 24px;">Rank</th>
+                </tr>
+                <tr>
+                    <td style="text-align: center; font-size: 32px; font-weight: bold"><% self.referrer_rank_march_2010(self.active_user) OR "Not Ranked" %></td>
+                </tr>
+                <tr>
+                    <th style="font-size: 24px;">Referrals</th>
+                </tr>
+                <tr>
+                    <td style="text-align: center; font-size: 32px; font-weight: bold"><% self.valid_referrals_march_2010(self.active_user) OR "0" %></th>
+                </tr>
+            </table>
+        <% ELSE %>
+            <h1>Log In Please</h1>
+        <% END %>
+    </div>
+<% INCLUDE praux/footer.htmlt %>

@@ -1,0 +1,20 @@
+<% title = "Import Resume" %>
+<% sub_title = "<span style='font-size: 16px;'>Importing Resume...</span>" %>
+<% INCLUDE praux/header.htmlt %>
+    <div style="padding: 5px">
+        <p style="color: red;">
+            Warning: This tool will OVERWRITE your resume with what you upload.  If you upload an empty file, it will clear your resume out!  Be 
+            very careful that you ONLY UPLOAD A VALID <a href="/all/resume.yaml">YAML EXPORT</a>.
+        </p> 
+		<form name="import_resume" enctype="multipart/form-data" method="post" action="<% romeo.romeo_location %>/import_resume/">
+    	    <input type="hidden" name="is_submit" value="1"/>
+			<div class="form-element">
+		        <label class="form-label">Resume File (yaml)</label>
+		        <input type="file" class="medium" name="resume_file"/>
+			</div>
+			<div class="form-element">
+		        <input style="height:20px" type="submit" value="Import"/> or <a class="modal-close" href="/edit/">Cancel</a>
+			</div>
+		</form>
+    </div>
+<% INCLUDE praux/footer.htmlt %>

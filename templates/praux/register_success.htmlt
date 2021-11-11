@@ -1,0 +1,9 @@
+<% title = "Registration Successful!" %>
+<% no_menu = 1 %>
+<% INCLUDE praux/header.htmlt %>
+<div style="padding: 5px">
+    <h3>Thanks for signing up!</h3>
+    <p>You will be receiving an e-mail from us shortly confirming your Praux.com account...</p>
+    <p>Get your resume started right now by <em>logging in</em> using the login form above!</p>
+</div>
+<% INCLUDE praux/footer.htmlt %>
